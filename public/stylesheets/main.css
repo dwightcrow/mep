@@ -1,28 +1,65 @@
+body{
+font-family:"Arial", sans-serif;
+}
+
+.iphoneWrapper{
+height:480px;
+width:320px;
+}
+
 .browseEvent{
-	
+height:100px;
+width:320px;
+}
+
+.topRow{
+height:40px;
+width:320px;
 }
 
 .activityIcon{
 float:left;
-width:40px;
-height:40px;
+width:30px;
+height:30px;
+margin:3px;
+border-radius:4px;
+border:solid;
+border-width:2px;
+border-color:#000;
 }
 
 .participantIcon{
 float:left;
-width:40px;
-height:40px;
+width:30px;
+height:30px;
+margin:3px;
+border-radius:4px;
+}
+
+.plusMore{
+color:#aaa;
+float:left;
+margin: 10px 10px 0 2px;
 }
 
 .eventTime{
-width:110px;
+margin: 4px 0 0 0;
+float:left;
+font-size:80%;
+}
+
+.plusMe{
 float:right;
+width:30px;
+height:30px;
+border-radius:4px;
+margin:3px;
 }
 
 .eventDescription{
 width:300px;
-}
-
-.eventWhere{
-width:300px;
+font-size:80%;
+line-height:1.0em;
+font-weight:300;
+color:#999;
 }
