@@ -4,7 +4,8 @@
 	<title>MEEP</title>
 
   <script src='/dummy.js'></script> <!-- TODO: load the data the right way, whatever that is. -->
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+  <!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script> -->
+  <script src='/javascripts/jquery.min.js'></script>
   
   <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
   
@@ -50,7 +51,6 @@
    */
   var renderEvents = function(eventList) {
     
-    // TODO: clean up this function with some javascript template library, like mustache (https://github.com/janl/mustache.js) maybe.
     var renderEvent = function(eventItem) {
       var createdByMe = eventItem.creatorId === CURRENT_USER_ID;
       var typeName = typeNames[eventItem.type];
@@ -58,30 +58,43 @@
       // Convert start and end to Date objects.
       var start = new Date(eventItem.start);
       var end = new Date(eventItem.end);
+      
+      var shownParticipants = $(eventItem.participants).slice(0, NUM_VISIBLE_PARTICIPANTS);
+      var unshownParticipants = $(eventItem.participants).slice(NUM_VISIBLE_PARTICIPANTS);
+      
+      // NOTE: The html variable is in single quotes to allow all the stuff
+      // inside to be double-quoted (our default).
+      var html = '' +
+        '<div class="browseEvent">' +
+        '  <div class="topRow">' +
+        '    <img class="activityIcon" src="' + activityIcons[eventItem.type] + '">';
 
-      var html = '<div class="browseEvent">' +
-      	           '<div class="topRow">' +
-                 		 '<img class="activityIcon" src="' + activityIcons[eventItem.type] + '">';
+      $(shownParticipants).each(function (participant, index) { html += '' +
+        '    <img class="participantIcon" src="' + participant.pic + '">'; });
 
-      var numShownParticipants = Math.min(eventItem.participants.length, NUM_VISIBLE_PARTICIPANTS);
-      for (var i = 0; i < numShownParticipants; i++) {
-        var participant = eventItem.participants[i];
-        html += '<img class="participantIcon" src="' + participant.pic + '">';
-      }
-
-      var numUnshownParticipants = eventItem.participants.length - numShownParticipants;
-
-      html += '<div class="plusMore">+' + numUnshownParticipants + '</div>';
-      html += '<div class="eventTime"> ' + dateToWeekdayAbbreviation(start) + '' + dateToHour(start) + '<span style="font-size:70%;color:#bbb;">' + dateToAmPm(start) + '</span>' + '-' + dateToHour(end) + '<span style="font-size:70%;color:#bbb;">' + dateToAmPm(end) + '</span> </div>';
-      html += '<img class="plusMe" src="images/plusMe.png">' +
-              '<br>' +
-              '</div>';
-      html += '<div class="eventDescription">' + eventItem.details + '</div>';
-      html += '<!-- for now where uses same class as desc -->' +
-              '<div class="eventDescription">' +
-                '<span style="color:#555;">Location:</span> ' + eventItem.location + '' +
-              '</div>';
-      html += '</div>';
+      html += '' +
+        '    <div class="plusMore">+' + unshownParticipants.length + '</div>' +
+        '    <div class="eventTime"> '+
+               dateToWeekdayAbbreviation(start) + '' +
+               dateToHour(start) +
+               '<span style="font-size:70%;color:#bbb;">' +
+                 dateToAmPm(start) +
+               '</span>' +
+                '-' +
+                dateToHour(end) +
+                '<span style="font-size:70%;color:#bbb;">' +
+                  dateToAmPm(end) +
+                '</span>' +
+        '    </div>' +
+        '    <img class="plusMe" src="images/plusMe.png">' +
+        '    <br>' +
+        '  </div>' +
+        '  <div class="eventDescription">' + eventItem.details + '</div>' +
+        '  <!-- for now where uses same class as desc -->' +
+        '  <div class="eventDescription">' +
+        '    <span style="color:#555;">Location:</span> ' + eventItem.location + '' +
+        '  </div>' +
+        '</div>';
 
       var element = $(html);
       element.appendTo($(".iphoneWrapper"));
