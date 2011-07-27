@@ -31,7 +31,7 @@ class LoginController < ApplicationController
 		#pull_fb_data ("/likes", access_token)
 		
 		#Get Name, ID, current location
-		userJSON = pull_fb_data ("",access_token)
+		userJSON = pull_fb_data("",access_token)
 		parsed_json = ActiveSupport::JSON.decode(userJSON)
 		p parsed_json["name"]
 		p parsed_json["id"]
@@ -39,7 +39,7 @@ class LoginController < ApplicationController
 
 	end
 	
-	def pull_fb_data (type, access_token)
+	def pull_fb_data(type, access_token)
 		graph_domain="graph.facebook.com"
 		path = "/me"+type+"?access_token="+access_token
 		http = Net::HTTP.new(graph_domain, 443)
