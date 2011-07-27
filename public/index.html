@@ -7,7 +7,7 @@
   <!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script> -->
   <script src='/javascripts/jquery.min.js'></script>
   
-  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+  <link rel='stylesheet' type='text/css' href='/stylesheets/main.css' />
   
   <script>
 
@@ -18,9 +18,9 @@
   var NUM_VISIBLE_PARTICIPANTS = 3;
 
   var activityIcons = {
-    1: "images/activity.jpg",
-    2: "images/activity.jpg",
-    3: "images/activity.jpg"
+    1: 'images/activity.jpg',
+    2: 'images/activity.jpg',
+    3: 'images/activity.jpg'
   };
 
 
@@ -29,7 +29,7 @@
   });
 
   /* Returns the 2-letter weekday abbreviation for the weekday of a given date. */
-  var weekdayAbbreviations = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  var weekdayAbbreviations = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   var dateToWeekdayAbbreviation = function(date) {
     return weekdayAbbreviations[date.getDay()];
   };
@@ -43,8 +43,8 @@
   /* Returns whether the given date is AM or PM. */
   var dateToAmPm = function(date) {
     var hours = date.getHours();
-    if (hours < 12) return "AM";
-    else return "PM";
+    if (hours < 12) return 'AM';
+    else return 'PM';
   };
 
   /* Renders DOM elements for all the events.
@@ -97,7 +97,7 @@
         '</div>';
 
       var element = $(html);
-      element.appendTo($(".iphoneWrapper"));
+      element.appendTo($('.iphoneWrapper'));
     };
 
     $.each(eventList, function(index, eventItem) {
@@ -111,7 +111,7 @@
 
 <body>
 
-  <div class="iphoneWrapper"></div>
+  <div class='iphoneWrapper'></div>
 
 </body>
 </html>
