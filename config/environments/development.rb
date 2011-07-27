@@ -19,8 +19,16 @@ Mep::Application.configure do
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
-
+	
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+  
+  #Base URL
+  config.base_url = "http://localhost:3000"
+  
+  #Facebook support for FB application MEEP DEV:
+  config.fb_app_secret = "c9b1edff3d9e408ad43db06b6f104e37"
+  config.fb_app_id = "211296558917780"
+  
 end
 
