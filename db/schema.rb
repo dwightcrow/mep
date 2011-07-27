@@ -10,12 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110727223440) do
+ActiveRecord::Schema.define(:version => 20110727231921) do
 
   create_table "users", :force => true do |t|
-    t.integer  "facebookId"
+    t.integer  "facebook_id"
     t.string   "name"
-    t.string   "picUrl"
+    t.string   "pic_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
