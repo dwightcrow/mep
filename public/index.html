@@ -69,7 +69,7 @@
         '  <div class="topRow">' +
         '    <img class="activityIcon" src="' + activityIcons[eventItem.type] + '">';
 
-      $(shownParticipants).each(function (participant, index) { html += '' +
+      $(shownParticipants).each(function (index, participant) { html += '' +
         '    <img class="participantIcon" src="' + participant.pic + '">'; });
 
       html += '' +
