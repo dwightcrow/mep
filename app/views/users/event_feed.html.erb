@@ -11,9 +11,9 @@ var CURRENT_USER_ID = 1;
 var NUM_VISIBLE_PARTICIPANTS = 3;
 
 var activityIcons = {
-  1: 'images/activity.jpg',
-  2: 'images/activity.jpg',
-  3: 'images/activity.jpg'
+  1: '/images/activity.jpg',
+  2: '/images/activity.jpg',
+  3: '/images/activity.jpg'
 };
 
 
@@ -79,7 +79,7 @@ var renderEvents = function(eventList) {
                 dateToAmPm(end) +
               '</span>' +
       '    </div>' +
-      '    <img class="plusMe" src="images/plusMe.png">' +
+      '    <img class="plusMe" src="/images/plusMe.png">' +
       '    <br>' +
       '  </div>' +
       '  <div class="eventDescription">' + eventItem.details + '</div>' +

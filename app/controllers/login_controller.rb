@@ -36,9 +36,29 @@ class LoginController < ApplicationController
 		p parsed_json["name"]
 		p parsed_json["id"]
 		p parsed_json["location"]["name"]
+		#pull user's picture
 		picture = pull_fb_data("/picture",access_token)
-		p picture
-
+		login_user(parsed_json,picture)
+	end
+	
+	def login_user(parsed_json,picture)
+		if(user = User.find_by_facebook_id(parsed_json["id"])) then
+			user.pic_url = picture
+		else
+			register_user(parsed_json,picture)
+		end
+		session[:user_id] = parsed_json["id"]
+		session[:user_name] = parsed_json["name"]
+		redirect_to "/users/event_feed"
+	end
+	
+	def register_user(parsed_json,picture)
+		user = User.new
+		user.facebook_id = parsed_json["id"]
+		user.name = parsed_json["name"]
+		user.created_at = Time.now.utc
+		user.updated_at = Time.now.utc
+		user.pic_url = picture
 	end
 	
 	def pull_fb_data(type, access_token)
