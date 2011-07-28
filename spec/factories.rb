@@ -1,17 +1,17 @@
 FactoryGirl.define do
   factory :user do
-    facebook_id 1234567890
+    sequence(:facebook_id)
     name "John Doe"
     pic_url "https://encrypted-tbn2.google.com/images?q=tbn:ANd9GcQ4jaEFxaxiDdA57OSYgWbhq5ugZTOXELcoKnv6W_KP-xQ5d6zt"
   end
   
   factory :event do
     details "quick 5 mile run"
-    association :event_type, :factory => :event_type
+    association :event_type_id, :factory => :event_type
     start_time { DateTime.now }
     end_time { DateTime.now.advance(:hours => 2) }
     location "somewhere in SF"
-    association :creator, :factory => :user
+    association :creator_id, :factory => :user
   end
   
   factory :event_participant do

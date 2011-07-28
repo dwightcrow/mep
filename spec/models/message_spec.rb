@@ -10,9 +10,9 @@
 #  updated_at   :datetime
 #
 
-# A message a user wrote on an event.
-class Message < ActiveRecord::Base
-  belongs_to :event
-  belongs_to :from_user, :class_name => "User", :foreign_key => "from_user_id"
+require 'spec_helper'
+
+describe Message do
+  pending "add some examples to (or delete) #{__FILE__}"
 end
 
