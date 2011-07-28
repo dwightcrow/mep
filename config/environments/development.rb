@@ -27,8 +27,8 @@ Mep::Application.configure do
   config.base_url = "http://localhost:3000"
   
   #Facebook support for FB application Hooqup:
-  config.fb_app_secret = "98b2addfc5692fcefe4698ab6cfe4c47"
-  config.fb_app_id = "168774749860643"
+  config.fb_app_secret = "c9b1edff3d9e408ad43db06b6f104e37"
+  config.fb_app_id = "211296558917780"
   
 end
 

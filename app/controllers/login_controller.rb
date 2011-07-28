@@ -36,6 +36,8 @@ class LoginController < ApplicationController
 		p parsed_json["name"]
 		p parsed_json["id"]
 		p parsed_json["location"]["name"]
+		picture = pull_fb_data("/picture",access_token)
+		p picture
 
 	end
 	
@@ -45,6 +47,8 @@ class LoginController < ApplicationController
 		http = Net::HTTP.new(graph_domain, 443)
 		http.use_ssl = true
 		res = http.get(path, nil)
+		#If we're requesting a picture, we want to return the location
+		if(type.eql?("/picture")) then return res["location"] end
 		return res.body
 	end
 end
