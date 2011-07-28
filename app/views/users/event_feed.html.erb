@@ -1,0 +1,105 @@
+<script src='/dummy.js'></script> <!-- TODO: load the data the right way, whatever that is. -->
+<!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script> -->
+<script src='/javascripts/jquery.min.js'></script>
+
+<script>
+
+// We'll have this from authentication; probly not with this exact var name.
+var CURRENT_USER_ID = 1;
+
+// How many participant pics show up in each event?
+var NUM_VISIBLE_PARTICIPANTS = 3;
+
+var activityIcons = {
+  1: 'images/activity.jpg',
+  2: 'images/activity.jpg',
+  3: 'images/activity.jpg'
+};
+
+
+$(document).ready(function() {
+  renderEvents(data);
+});
+
+/* Returns the 2-letter weekday abbreviation for the weekday of a given date. */
+var weekdayAbbreviations = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+var dateToWeekdayAbbreviation = function(date) {
+  return weekdayAbbreviations[date.getDay()];
+};
+
+/* Returns the 12-hour hour time for a given date. */
+var dateToHour = function(date) {
+  // TODO: implement.
+  return date.getHours() % 12 + 1;
+};
+
+/* Returns whether the given date is AM or PM. */
+var dateToAmPm = function(date) {
+  var hours = date.getHours();
+  if (hours < 12) return 'AM';
+  else return 'PM';
+};
+
+/* Renders DOM elements for all the events.
+ */
+var renderEvents = function(eventList) {
+  
+  var renderEvent = function(eventItem) {
+    var createdByMe = eventItem.creatorId === CURRENT_USER_ID;
+    var typeName = typeNames[eventItem.type];
+    
+    // Convert start and end to Date objects.
+    var start = new Date(eventItem.start);
+    var end = new Date(eventItem.end);
+    
+    var shownParticipants = $(eventItem.participants).slice(0, NUM_VISIBLE_PARTICIPANTS);
+    var unshownParticipants = $(eventItem.participants).slice(NUM_VISIBLE_PARTICIPANTS);
+    
+    // NOTE: The html variable is in single quotes to allow all the stuff
+    // inside to be double-quoted (our default).
+    var html = '' +
+      '<div class="browseEvent">' +
+      '  <div class="topRow">' +
+      '    <img class="activityIcon" src="' + activityIcons[eventItem.type] + '">';
+
+    $(shownParticipants).each(function (index, participant) { html += '' +
+      '    <img class="participantIcon" src="' + participant.pic + '">'; });
+
+    html += '' +
+      '    <div class="plusMore">+' + unshownParticipants.length + '</div>' +
+      '    <div class="eventTime"> '+
+             dateToWeekdayAbbreviation(start) + '' +
+             dateToHour(start) +
+             '<span style="font-size:70%;color:#bbb;">' +
+               dateToAmPm(start) +
+             '</span>' +
+              '-' +
+              dateToHour(end) +
+              '<span style="font-size:70%;color:#bbb;">' +
+                dateToAmPm(end) +
+              '</span>' +
+      '    </div>' +
+      '    <img class="plusMe" src="images/plusMe.png">' +
+      '    <br>' +
+      '  </div>' +
+      '  <div class="eventDescription">' + eventItem.details + '</div>' +
+      '  <!-- for now where uses same class as desc -->' +
+      '  <div class="eventDescription">' +
+      '    <span style="color:#555;">Location:</span> ' + eventItem.location + '' +
+      '  </div>' +
+      '</div>';
+
+    var element = $(html);
+    element.appendTo($('.iphoneWrapper'));
+  };
+
+  $.each(eventList, function(index, eventItem) {
+    renderEvent(eventItem);
+  });
+};
+
+</script>
+
+<center>
+  <div class='iphoneWrapper'></div>
+</center>
