@@ -13,6 +13,8 @@ class UsersController < ApplicationController
 		redirect_to "/login"
 	end
 	
-
-	
+  def event_feed_json
+    @user = User.new
+    render :template => 'users/event_feed.js.erb'
+  end
 end

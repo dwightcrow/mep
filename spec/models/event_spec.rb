@@ -13,20 +13,9 @@
 #  creator_id    :integer
 #
 
-# An event created by a user.
-class Event < ActiveRecord::Base
-  has_many :event_participants
-  has_many :users, :through => :event_participants
-  has_many :messages
-  has_one :event_type
-  belongs_to :user, :foreign_key => :creator_id
-  
-  def participants
-    self.users
-  end
-  
-  def creator
-    self.user
-  end
+require 'spec_helper'
+
+describe Event do
+  pending "add some examples to (or delete) #{__FILE__}"
 end
 
