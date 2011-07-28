@@ -43,7 +43,14 @@ Mep::Application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
-
+	
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  #Base URL
+  config.base_url = "http://hooqup.org"
+  
+  #Facebook support for FB application MEEP DEV:
+  config.fb_app_secret = "c9b1edff3d9e408ad43db06b6f104e37"
+  config.fb_app_id = "211296558917780"
 end

@@ -3,16 +3,17 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-  	<%=stylesheet_link_tag 'default' %>
+  	<%=stylesheet_link_tag 'main' %>
   	<%=@includes%>
     <title><%=@page_title%></title>
+    <!-- use this line instead -->
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
   </head>
   <body>
-  	<div class="wrapper">
-  	<div id="title" ><%=@page_title%></div>
-  	<div class="right"> <%=@login_state%></div>
-
+  	<center>
+  	<div class="iphoneWrapper">
 		<%=yield%>
 		</div>
+		</center>
   </body>
 </html>

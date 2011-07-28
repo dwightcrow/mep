@@ -4,7 +4,7 @@ require "net/https"
 
 class LoginController < ApplicationController
   def index
-  
+  	@page_title = "Login to hooqup"
   end
 
 	def fb_button_click

@@ -3,6 +3,7 @@ font-family:"Arial", sans-serif;
 }
 
 .iphoneWrapper{
+margin: 0px auto 0px auto; 
 height:480px;
 width:320px;
 }
@@ -62,4 +63,26 @@ font-size:80%;
 line-height:1.0em;
 font-weight:300;
 color:#999;
+}
+
+/* Mobile UI CSS*/
+/* This css changes the size of the input elements */
+input {
+    -webkit-text-size-adjust: 140%;
+}
+/* rounded corners in safari on a div */
+div {
+    -webkit-border-radius: 10px;
+}
+/* for firefox */
+div {
+    -moz-border-radius: 10px;
+}
+/* cool shadow, but maybe not useful */
+h1 {
+    text-shadow: 2px 2px 6px black;
+}
+
+body{
+	margin-top:15px;
 }
