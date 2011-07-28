@@ -5,8 +5,8 @@
 #  id            :integer         not null, primary key
 #  event_type_id :integer
 #  details       :string(255)
-#  start         :datetime
-#  end           :datetime
+#  start_time    :datetime
+#  end_time      :datetime
 #  location      :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
