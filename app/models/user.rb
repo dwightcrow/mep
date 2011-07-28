@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     Event.all
   end
   
-  def event_feed
+  def event_feed_json
     relevant_events.map do |event|
       {
         :creatorId => event.creator.facebook_id,

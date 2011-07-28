@@ -22,7 +22,7 @@ describe User do
       user1 = Factory.create(:user)
       user2 = Factory.create(:user)
       
-      p creator.event_feed
+      p creator.event_feed_json
     end
     
     it "dummy" do
@@ -60,7 +60,7 @@ describe User do
       Factory.create(:message, :text => "me 2", :from_user_id => ashwin.facebook_id)
       Factory.create(:message, :text => "done. 3pm in front of the TransAm building", :from_user_id => dwight.facebook_id)
       
-      puts mason.event_feed
+      puts mason.event_feed_json
     end
   end
 end
