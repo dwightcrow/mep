@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+['Running', 'Orgy', 'Hiking', 'Yoga', 'Concert'].each do |name|
+  EventType.create(:name => name)
+end
