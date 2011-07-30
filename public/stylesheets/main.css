@@ -99,6 +99,7 @@ border:solid;
 border-width:1px;
 border-color: #fff #fff #777 #fff;
 border-radius:0px;
+display:none;
 }
 
 .messageContents{

@@ -20,6 +20,8 @@ var activityIcons = {
 
 $(document).ready(function() {
   renderEvents(data);
+  $('.browseEvent').click( toggleMessages );
+
 });
 
 /* Returns the 2-letter weekday abbreviation for the weekday of a given date. */
@@ -40,6 +42,9 @@ var dateToAmPm = function(date) {
   if (hours < 12) return 'AM';
   else return 'PM';
 };
+
+// hacky place holder until we get eventId - probably a better way
+var eventId=0;
 
 /* Renders DOM elements for all the events.
  */
@@ -98,7 +103,7 @@ var renderEvents = function(eventList) {
     //ick
     var sender = eventItem.participants.filter( function( user ){ return (user.userId == msg.fromUserId); } )[0];
     html += '' +
-    '<div class="message">'  +
+    '<div class="message" id="messageGroup'+eventId+'">'  +
     '    <img class="messageIcon" src="' + sender.pic + '">' +
     '    <div class="messageContents"><span class="messageSender">' + sender.name + ':</span> ' +
          msg.message + '<br>' +
@@ -106,7 +111,7 @@ var renderEvents = function(eventList) {
          '</div>' +
     '</div>';
     } );
-
+    eventId = eventId + 1;
     var element = $(html);
     element.appendTo($('.iphoneWrapper'));
   };
@@ -115,6 +120,14 @@ var renderEvents = function(eventList) {
     renderEvent(eventItem);
   });
 };
+
+var showingMessages = false;
+var toggleMessages = function(){
+  if( showingMessages ){ $(".message").show( 800 ); }
+  else{ $(".message").hide( 800 ); }
+  showingMessages = !showingMessages;
+};
+
 
 </script>
 
