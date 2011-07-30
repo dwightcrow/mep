@@ -43,9 +43,6 @@ var dateToAmPm = function(date) {
   else return 'PM';
 };
 
-// hacky place holder until we get eventId - probably a better way
-var eventId=0;
-
 /* Renders DOM elements for all the events.
  */
 var renderEvents = function(eventList) {
@@ -103,7 +100,7 @@ var renderEvents = function(eventList) {
     //ick
     var sender = eventItem.participants.filter( function( user ){ return (user.userId == msg.fromUserId); } )[0];
     html += '' +
-    '<div class="message" id="messageGroup'+eventId+'">'  +
+    '<div class="message">'  +
     '    <img class="messageIcon" src="' + sender.pic + '">' +
     '    <div class="messageContents"><span class="messageSender">' + sender.name + ':</span> ' +
          msg.message + '<br>' +
