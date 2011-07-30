@@ -92,6 +92,20 @@ var renderEvents = function(eventList) {
       '    <span style="color:#555;">Where:</span> ' + eventItem.location + '' +
       '  </div>' +
       '</div>';
+    // iterate messages, hidden by default
+
+    $.each( eventItem.messages, function( index, msg ){
+    //ick
+    var sender = eventItem.participants.filter( function( user ){ return (user.userId == msg.fromUserId); } )[0];
+    html += '' +
+    '<div class="message">'  +
+    '    <img class="messageIcon" src="' + sender.pic + '">' +
+    '    <div class="messageContents"><span class="messageSender">' + sender.name + ':</span> ' +
+         msg.message + '<br>' +
+         '<span class=messageTime> Thursday, 3:14 AM </span>' +
+         '</div>' +
+    '</div>';
+    } );
 
     var element = $(html);
     element.appendTo($('.iphoneWrapper'));
