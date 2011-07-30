@@ -4,8 +4,6 @@ body{
 }
 
 #content{
-	height:430px;
-	width:320px;
 }
 
 #titlebar{
@@ -15,14 +13,19 @@ body{
 	width:320px;
 }
 .iphoneWrapper{
-margin: 0px auto 0px auto; 
+margin: 0px auto 0px auto;
 height:480px;
 width:320px;
 }
 
 .browseEvent{
-height:100px;
+height:65px;
 width:320px;
+margin: 0 0 0 0;
+border:solid;
+border-width:1px;
+border-color: #fff #fff #777 #fff;
+border-radius:0px;
 }
 
 .topRow{
@@ -52,12 +55,12 @@ border-radius:4px;
 .plusMore{
 color:#aaa;
 float:left;
-margin: 10px 10px 0 2px;
+margin: 10px 10px 0 5px;
 }
 
 .eventTime{
-margin: 4px 0 0 0;
-float:left;
+margin: 4px 5px 0 0;
+float:right;
 font-size:80%;
 }
 
@@ -75,6 +78,17 @@ font-size:80%;
 line-height:1.0em;
 font-weight:300;
 color:#999;
+margin: -2px 0 0 0;
+}
+
+/* shitty DRY execution */
+.eventWhere{
+width:300px;
+font-size:80%;
+line-height:1.0em;
+font-weight:300;
+color:#999;
+margin: 0 0 0 0;
 }
 
 /* Mobile UI CSS*/
