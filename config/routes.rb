@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   match "/" => "users#event_feed"
+  resources :events, :only => [:new, :index]
   
   # The priority is based upon order of creation: first created -> highest priority.
 
