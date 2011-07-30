@@ -1,7 +1,12 @@
 body{
-font-family:"Arial", sans-serif;
+	font-family:"Arial", sans-serif;
+	margin: 0px;
 }
 
+#content{
+	height:430px;
+	width:320px;
+}
 
 #titlebar{
 	background-image:url("/images/title_gradient.png");
@@ -90,6 +95,3 @@ h1 {
     text-shadow: 2px 2px 6px black;
 }
 
-body{
-	margin-top:15px;
-}
