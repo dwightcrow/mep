@@ -83,8 +83,7 @@ Ext.setup({
             var dockedItems = [{
                 xtype: 'toolbar',
                 ui: 'light',
-                items: {},
-                title: 'awesome',
+                title: 'Hooqup',
                 dock: 'top',
             }];/*, {
                 xtype: 'toolbar',
