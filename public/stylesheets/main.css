@@ -1,5 +1,6 @@
 body{
 	font-family:"Arial", sans-serif;
+	font:13px arial,sans-serif;
 	margin: 0px;
 }
 
@@ -7,17 +8,15 @@ body{
 	height:430px;
 	width:320px;
 }
-
+/*
 #titlebar{
 	background-image:url("/images/title_gradient.png");
 	background-repeat:repeat-x;
 	height:50px;
 	width:320px;
-}
+}*/
 .iphoneWrapper{
 margin: 0px auto 0px auto; 
-height:480px;
-width:320px;
 }
 
 .browseEvent{
@@ -77,21 +76,44 @@ font-weight:300;
 color:#999;
 }
 
-/* Mobile UI CSS*/
-/* This css changes the size of the input elements */
-input {
-    -webkit-text-size-adjust: 140%;
-}
-/* rounded corners in safari on a div */
-div {
+a.button {
+    background:url("/images/btn_grad.png") 0px -25px transparent;
+		background-repeat:repeat-x;
+    display: inline;
     -webkit-border-radius: 10px;
-}
-/* for firefox */
-div {
     -moz-border-radius: 10px;
+    font-weight: 700;
+    font-size:15px;
+    text-align:center;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 0 0 10px;
+    padding: 10px;
+    text-shadow: 1px 1px 0 #E2E2E2;
+    width: 156px;
 }
-/* cool shadow, but maybe not useful */
-h1 {
-    text-shadow: 2px 2px 6px black;
+/*
+a.button:hover{
+	background: url("/images/btn_grad.png") 0px -30px transparent;
+}
+a.button:active{
+	background: url("/images/btn_grad.png") 0px -35px transparent;
+}
+a.button 
+a:link{
+	color: #333333;
+}
+a:visited {
+	color: #333333;
+}
+a:hover {
+	COLOR: #333333;
 }
 
+a:active {
+	COLOR: #333333;
+}
+*/
+a	{
+	text-decoration: none;
+}

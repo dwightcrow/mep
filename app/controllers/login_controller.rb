@@ -29,30 +29,42 @@ class LoginController < ApplicationController
 		access_token = CGI::parse(res.body)["access_token"][0]
 		#TODO - theoretically we could also make this call and filter on category for "sports"
 		#pull_fb_data ("/likes", access_token)
-		
+		login_user(access_token)
+	end
+	
+	def login_user(access_token)
 		#Get Name, ID, current location
 		userJSON = pull_fb_data("",access_token)
 		parsed_json = ActiveSupport::JSON.decode(userJSON)
-		p parsed_json["name"]
-		p parsed_json["id"]
-		p parsed_json["location"]["name"]
-		#pull user's picture
-		picture = pull_fb_data("/picture",access_token)
-		login_user(parsed_json,picture)
-	end
-	
-	def login_user(parsed_json,picture)
 		if(user = User.find_by_facebook_id(parsed_json["id"])) then
+			#pull user's picture
+			picture = pull_fb_data("/picture",access_token)
 			user.pic_url = picture
+			session[:user_id] = parsed_json["id"]
+			session[:user_name] = parsed_json["name"]
+			redirect_to "/users/event_feed"
 		else
-			register_user(parsed_json,picture)
+				session[:access_token] = access_token
+				redirect_to "/login/signup"
+				return
 		end
-		session[:user_id] = parsed_json["id"]
-		session[:user_name] = parsed_json["name"]
-		redirect_to "/users/event_feed"
 	end
 	
-	def register_user(parsed_json,picture)
+	#Case where we block the user and 
+	def signup
+		#if(!session.has_key?("user_id")) then 
+  	#	redirect_to "/login" 
+  #		return
+  	#end
+		userJSON = pull_fb_data("",session[:access_token])
+		parsed_json = ActiveSupport::JSON.decode(userJSON)
+	end
+	
+	def register_user(access_token)
+		#Get Name, ID, current location
+		userJSON = pull_fb_data("",access_token)
+		parsed_json = ActiveSupport::JSON.decode(userJSON)
+		picture = pull_fb_data("/picture",access_token)
 		user = User.new
 		user.facebook_id = parsed_json["id"]
 		user.name = parsed_json["name"]
@@ -71,4 +83,8 @@ class LoginController < ApplicationController
 		if(type.eql?("/picture")) then return res["location"] end
 		return res.body
 	end
+	
+	
+	
+	
 end
