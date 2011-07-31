@@ -16,7 +16,7 @@ var NOW = new Date();
 
 
 // This first one is an event you created, and you're the only one going.
-var data = [ 
+var data = [
   { creatorUserId: 1,
     participants: [ { userId: 1,
                      name: "Mason Simon",
@@ -112,5 +112,28 @@ var data = [
                 { message: "done. 3pm in front of the TransAm building",
                   messageId: 12412195,
                   fromUserId: 4,
-                  sentAt: hoursAfter(NOW, 15.3) } ] }
+                  sentAt: hoursAfter(NOW, 15.3) } ] },
+
+    // Here's an event someone else made, that a few people are going to, that doesn't have any messages
+    { creatorUserId: 4,
+    participants: [ { userId: 4,
+                      name: "Dwight Crow",
+                      pic: "https://encrypted-tbn2.google.com/images?q=tbn:ANd9GcQ4jaEFxaxiDdA57OSYgWbhq5ugZTOXELcoKnv6W_KP-xQ5d6zt" },
+                    { userId: 2,
+                      name: "Sean Holbert",
+                      pic: "https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcTxQ0tPZkHRHar3zmvcEByhdEhN5oz15qkux-xOYskA226Y8l5odg" },
+                    { userId: 3,
+                      name: "Ashwin Mudaliar",
+                      pic: "https://encrypted-tbn2.google.com/images?q=tbn:ANd9GcTOugRH2peeiRniAvvZGBDG2MEjfJD54TVGFAByO-RqEdZi3pXgIA" },
+                    { userId: 1,
+                      name: "Mason Simon",
+                      pic: "https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcQunmaNuxGPq7Z3NNkaeYvtNviM3m6UvE-w0vKnuRdswlh0PuMu" } ],
+    type: 3,
+    details: "exploding shit. same alley as usual?",
+    start: hoursAfter(NOW, 42),
+    end: hoursAfter(NOW, 43),
+    createdAtLocation: { lat: 37.8150, lng: -122.4035 },
+    location: "alley",
+    messages: [ ] }
 ];
+

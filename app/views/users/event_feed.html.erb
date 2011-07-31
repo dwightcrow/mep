@@ -1,4 +1,5 @@
-<script src='/users/event_feed_json'></script>
+<!-- <#script src='/users/event_feed_json'></script>-->
+<script src='/dummy.js'></script>
 <!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script> -->
 <script src='/javascripts/jquery.min.js'></script>
 
@@ -19,6 +20,8 @@ var activityIcons = {
 
 $(document).ready(function() {
   renderEvents(data);
+  $('.browseEvent').click( toggleMessages );
+
 });
 
 /* Returns the 2-letter weekday abbreviation for the weekday of a given date. */
@@ -43,18 +46,18 @@ var dateToAmPm = function(date) {
 /* Renders DOM elements for all the events.
  */
 var renderEvents = function(eventList) {
-  
+
   var renderEvent = function(eventItem) {
     var createdByMe = eventItem.creatorId === CURRENT_USER_ID;
     var typeName = typeNames[eventItem.type];
-    
+
     // Convert start and end to Date objects.
     var start = new Date(eventItem.start);
     var end = new Date(eventItem.end);
-    
+
     var shownParticipants = $(eventItem.participants).slice(0, NUM_VISIBLE_PARTICIPANTS);
     var unshownParticipants = $(eventItem.participants).slice(NUM_VISIBLE_PARTICIPANTS);
-    
+
     // NOTE: The html variable is in single quotes to allow all the stuff
     // inside to be double-quoted (our default).
     var html = '' +
@@ -65,10 +68,14 @@ var renderEvents = function(eventList) {
     $(shownParticipants).each(function (index, participant) { html += '' +
       '    <img class="participantIcon" src="' + participant.pic + '">'; });
 
+    if( unshownParticipants.length > 0 ){
     html += '' +
-      '    <div class="plusMore">+' + unshownParticipants.length + '</div>' +
+      '    <div class="plusMore">+' + unshownParticipants.length + '</div>';
+    }
+    html += '' +
+      '    <img class="plusMe" src="/images/plusMe.png">' +
       '    <div class="eventTime"> '+
-             dateToWeekdayAbbreviation(start) + '' +
+             dateToWeekdayAbbreviation(start) + ' ' +
              dateToHour(start) +
              '<span style="font-size:70%;color:#bbb;">' +
                dateToAmPm(start) +
@@ -79,16 +86,29 @@ var renderEvents = function(eventList) {
                 dateToAmPm(end) +
               '</span>' +
       '    </div>' +
-      '    <img class="plusMe" src="/images/plusMe.png">' +
       '    <br>' +
       '  </div>' +
       '  <div class="eventDescription">' + eventItem.details + '</div>' +
       '  <!-- for now where uses same class as desc -->' +
-      '  <div class="eventDescription">' +
-      '    <span style="color:#555;">Location:</span> ' + eventItem.location + '' +
+      '  <div class="eventWhere">' +
+      '    <span style="color:#555;">Where:</span> ' + eventItem.location + '' +
       '  </div>' +
       '</div>';
+    // iterate messages, hidden by default
 
+    $.each( eventItem.messages, function( index, msg ){
+    //ick
+    var sender = eventItem.participants.filter( function( user ){ return (user.userId == msg.fromUserId); } )[0];
+    html += '' +
+    '<div class="message">'  +
+    '    <img class="messageIcon" src="' + sender.pic + '">' +
+    '    <div class="messageContents"><span class="messageSender">' + sender.name + ':</span> ' +
+         msg.message + '<br>' +
+         '<span class=messageTime> Thursday, 3:14 AM </span>' +
+         '</div>' +
+    '</div>';
+    } );
+    eventId = eventId + 1;
     var element = $(html);
     element.appendTo($('.iphoneWrapper'));
   };
@@ -97,6 +117,14 @@ var renderEvents = function(eventList) {
     renderEvent(eventItem);
   });
 };
+
+var showingMessages = false;
+var toggleMessages = function(){
+  if( showingMessages ){ $(".message").show( 800 ); }
+  else{ $(".message").hide( 800 ); }
+  showingMessages = !showingMessages;
+};
+
 
 </script>
 

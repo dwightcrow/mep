@@ -5,23 +5,20 @@ body{
 }
 
 #content{
-	height:430px;
-	width:320px;
 }
-/*
-#titlebar{
-	background-image:url("/images/title_gradient.png");
-	background-repeat:repeat-x;
-	height:50px;
-	width:320px;
-}*/
+
 .iphoneWrapper{
-margin: 0px auto 0px auto; 
+margin: 0px auto 0px auto;
 }
 
 .browseEvent{
-height:100px;
+height:65px;
 width:320px;
+margin: 0 0 0 0;
+border:solid;
+border-width:1px;
+border-color: #fff #fff #777 #fff;
+border-radius:0px;
 }
 
 .topRow{
@@ -51,12 +48,12 @@ border-radius:4px;
 .plusMore{
 color:#aaa;
 float:left;
-margin: 10px 10px 0 2px;
+margin: 10px 10px 0 5px;
 }
 
 .eventTime{
-margin: 4px 0 0 0;
-float:left;
+margin: 4px 5px 0 0;
+float:right;
 font-size:80%;
 }
 
@@ -74,6 +71,58 @@ font-size:80%;
 line-height:1.0em;
 font-weight:300;
 color:#999;
+margin: -2px 0 0 0;
+}
+
+/* shitty DRY execution */
+.eventWhere{
+width:300px;
+font-size:80%;
+line-height:1.0em;
+font-weight:300;
+color:#999;
+margin: 0 0 0 0;
+}
+
+.message{
+min-height:29px;
+width:320px;
+margin: 0 0 0 0;
+border:solid;
+border-width:1px;
+border-color: #fff #fff #777 #fff;
+border-radius:0px;
+display:none;
+}
+
+.messageContents{
+margin: 2px 1px 0 0;
+font-size:80%;
+line-height:1.0em;
+font-weight:300;
+color:#999;
+padding: 0 0 3px 0;
+}
+
+.messageIcon{
+float:left;
+width:24px;
+height:24px;
+margin:2px;
+border-radius:3px;
+}
+
+.messageSender{
+color:#222;
+weight:600;
+}
+
+.messageTime{
+font-size:75%;
+line-height:1.0em;
+font-weight:300;
+color:#999;
+margin: 0 0 3px 0;
 }
 
 a.button {
