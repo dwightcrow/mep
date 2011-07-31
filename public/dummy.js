@@ -17,7 +17,8 @@ var NOW = new Date();
 
 // This first one is an event you created, and you're the only one going.
 var data = [
-  { creatorUserId: 1,
+  { eventId: 1,
+    creatorUserId: 1,
     participants: [ { userId: 1,
                      name: "Mason Simon",
                      pic: "https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcQunmaNuxGPq7Z3NNkaeYvtNviM3m6UvE-w0vKnuRdswlh0PuMu" } ],
@@ -33,7 +34,8 @@ var data = [
                   sentAt: hoursAfter(NOW, 1) } ] },
 
   // Here's another one you created, with a couple people going.
-  { creatorUserId: 1,
+  { eventId: 2,
+    creatorUserId: 1,
     participants: [{ userId: 1,
                      name: "Mason Simon",
                      pic: "https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcQunmaNuxGPq7Z3NNkaeYvtNviM3m6UvE-w0vKnuRdswlh0PuMu" },
@@ -64,7 +66,8 @@ var data = [
                   sentAt: hoursAfter(NOW, 4.1) } ] },
 
   // Here's an event someone else made, that no one else is going to.
-  { creatorUserId: 3,
+  { eventId: 3,
+    creatorUserId: 3,
     participants: [ { userId: 3,
                       name: "Ashwin Mudaliar",
                       pic: "https://encrypted-tbn2.google.com/images?q=tbn:ANd9GcTOugRH2peeiRniAvvZGBDG2MEjfJD54TVGFAByO-RqEdZi3pXgIA" } ],
@@ -77,7 +80,8 @@ var data = [
     messages: [] },
 
   // Here's an event someone else made, that a few people (not including you) are going to.
-  { creatorUserId: 4,
+  { eventId: 4,
+    creatorUserId: 4,
     participants: [ { userId: 4,
                       name: "Dwight Crow",
                       pic: "https://encrypted-tbn2.google.com/images?q=tbn:ANd9GcQ4jaEFxaxiDdA57OSYgWbhq5ugZTOXELcoKnv6W_KP-xQ5d6zt" },
@@ -115,7 +119,9 @@ var data = [
                   sentAt: hoursAfter(NOW, 15.3) } ] },
 
     // Here's an event someone else made, that a few people are going to, that doesn't have any messages
-    { creatorUserId: 4,
+    {
+    eventId: 5,
+    creatorUserId: 4,
     participants: [ { userId: 4,
                       name: "Dwight Crow",
                       pic: "https://encrypted-tbn2.google.com/images?q=tbn:ANd9GcQ4jaEFxaxiDdA57OSYgWbhq5ugZTOXELcoKnv6W_KP-xQ5d6zt" },

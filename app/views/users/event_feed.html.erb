@@ -2,7 +2,7 @@
 <script src='/dummy.js'></script>
 <!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script> -->
 <script src='/javascripts/jquery.min.js'></script>
-
+<script src='/javascripts/date.format.js'></script>
 <script>
 
 // We'll have this from authentication; probly not with this exact var name.
@@ -16,7 +16,6 @@ var activityIcons = {
   2: '/images/activity.jpg',
   3: '/images/activity.jpg'
 };
-
 
 $(document).ready(function() {
   renderEvents(data);
@@ -61,7 +60,8 @@ var renderEvents = function(eventList) {
     // NOTE: The html variable is in single quotes to allow all the stuff
     // inside to be double-quoted (our default).
     var html = '' +
-      '<div class="browseEvent">' +
+      '<div class="eventWrapper" id="event'+eventItem.eventId+'">' +
+      '<div class="browseEvent">'  +
       '  <div class="topRow">' +
       '    <img class="activityIcon" src="' + activityIcons[eventItem.type] + '">';
 
@@ -98,17 +98,20 @@ var renderEvents = function(eventList) {
 
     $.each( eventItem.messages, function( index, msg ){
     //ick
+    var now = new Date();
+    now.format("dddd");
     var sender = eventItem.participants.filter( function( user ){ return (user.userId == msg.fromUserId); } )[0];
     html += '' +
     '<div class="message">'  +
     '    <img class="messageIcon" src="' + sender.pic + '">' +
     '    <div class="messageContents"><span class="messageSender">' + sender.name + ':</span> ' +
          msg.message + '<br>' +
-         '<span class=messageTime> Thursday, 3:14 AM </span>' +
+         '<span class=messageTime>'+(new Date(msg.sentAt)).format('dddd, h:MM TT')+'</span>' +
          '</div>' +
     '</div>';
     } );
-    eventId = eventId + 1;
+    html+='</div>';
+
     var element = $(html);
     element.appendTo($('.iphoneWrapper'));
   };
@@ -118,13 +121,19 @@ var renderEvents = function(eventList) {
   });
 };
 
-var showingMessages = false;
-var toggleMessages = function(){
-  if( showingMessages ){ $(".message").show( 800 ); }
-  else{ $(".message").hide( 800 ); }
-  showingMessages = !showingMessages;
-};
-
+// might be worth creating messages wrapper and animating that
+var toggleMessages = function( ){
+  var wrapper = $(this).parent();
+  var messages = $(wrapper).children('.message');
+  console.log( messages );
+  $.each( messages, function( index, msg ){
+    if( $(msg).css('display') === 'none' ){
+      $(msg).slideDown('slow');
+    } else{
+      $( msg ).slideUp('slow');
+    }
+  });
+}
 
 </script>
 

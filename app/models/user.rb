@@ -15,14 +15,15 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :messages
   attr_accessible :facebook_id
-  
+
   def relevant_events
     Event.all
   end
-  
+
   def event_feed_json
     relevant_events.map do |event|
       {
+        :eventId => event.id,
         :creatorId => event.creator.facebook_id,
         :participants => event.participants.map { |user| { :userId => user.facebook_id, :name => user.name, :pic => user.pic_url } },
         :type => event.event_type_id,
