@@ -105,13 +105,11 @@ Ext.setup({
         }
 
         new Ext.Panel({
-            id: 'toolbartxt',
+            id: 'phone_screen',
             fullscreen: true,
             html: document.getElementById("content").innerHTML,
             styleHtmlContent: true,
             dockedItems: dockedItems
         });
-        
-        document.getElementById("content").style("display","block");
     }
 });
