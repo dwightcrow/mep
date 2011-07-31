@@ -144,6 +144,20 @@ color:#999;
 margin: 0 0 3px 0;
 }
 
+.composeMessage{
+min-height:45px;
+width:320px;
+padding: 2px;
+font-size:80%;
+line-height:1.0em;
+font-weight:300;
+color:#999;
+border:solid;
+border-width:1px;
+border-color: #fff #fff #777 #fff;
+border-radius:0px;
+}
+
 /* Mobile UI CSS*/
 /* This css changes the size of the input elements */
 input {
