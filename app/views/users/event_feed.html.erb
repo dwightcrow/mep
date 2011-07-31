@@ -95,11 +95,8 @@ var renderEvents = function(eventList) {
       '  </div>' +
       '</div>';
     // iterate messages, hidden by default
-
+    html += '<div class="messagesWrapper">';
     $.each( eventItem.messages, function( index, msg ){
-    //ick
-    var now = new Date();
-    now.format("dddd");
     var sender = eventItem.participants.filter( function( user ){ return (user.userId == msg.fromUserId); } )[0];
     html += '' +
     '<div class="message">'  +
@@ -111,6 +108,7 @@ var renderEvents = function(eventList) {
     '</div>';
     } );
     html+='</div>';
+    html+='</div>';
 
     var element = $(html);
     element.appendTo($('.iphoneWrapper'));
@@ -121,18 +119,14 @@ var renderEvents = function(eventList) {
   });
 };
 
-// might be worth creating messages wrapper and animating that
 var toggleMessages = function( ){
   var wrapper = $(this).parent();
-  var messages = $(wrapper).children('.message');
-  console.log( messages );
-  $.each( messages, function( index, msg ){
-    if( $(msg).css('display') === 'none' ){
-      $(msg).slideDown('slow');
-    } else{
-      $( msg ).slideUp('slow');
-    }
-  });
+  var messagesWrapper = $(wrapper).children('.messagesWrapper');
+  if( $(messagesWrapper).css('display') === 'none' ){
+    $(messagesWrapper).slideDown(220);
+  } else{
+    $( messagesWrapper ).slideUp(280);
+  }
 }
 
 </script>
