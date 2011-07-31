@@ -93,6 +93,7 @@ var renderEvents = function(eventList) {
       '  <div class="eventWhere">' +
       '    <span style="color:#555;">Where:</span> ' + eventItem.location + '' +
       '  </div>' +
+      '  <div class="numMessages">'+eventItem.messages.length+'msg</div>' +
       '</div>';
     // iterate messages, hidden by default
     html += '<div class="messagesWrapper">';
