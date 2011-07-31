@@ -20,7 +20,7 @@ var activityIcons = {
 $(document).ready(function() {
   renderEvents(data);
   $('.browseEvent').click( toggleMessages );
-
+  $('#content').show();
 });
 
 /* Returns the 2-letter weekday abbreviation for the weekday of a given date. */
@@ -114,7 +114,8 @@ var renderEvents = function(eventList) {
     html+='</div>';
 
     var element = $(html);
-    element.appendTo($('.iphoneWrapper'));
+    element.appendTo($('#content'));
+    console.log( element );
   };
 
   $.each(eventList, function(index, eventItem) {
