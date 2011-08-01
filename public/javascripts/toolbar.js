@@ -6,9 +6,8 @@ Ext.setup({
 
     onReady: function() {
 
-        var tapHandler = function(button, event) {
-            var txt = "User tapped the '" + button.text + "' button.";
-            Ext.getCmp('toolbartxt').update(txt);
+        var addHandler = function(button, event) {
+             Ext.getCmp('main_panel').update("add button pressed");
         };
 
 
@@ -85,7 +84,16 @@ Ext.setup({
                 ui: 'light',
                 title: 'Hooqup',
                 dock: 'top',
-            }];/*, {
+                //+ button
+                items:[{xtype: 'spacer'},
+                {
+                	iconMask: true, 
+                	iconAlign: 'right', 
+                	ui: 'plain', 
+                	handler: addHandler,
+                	iconCls: 'add'
+                }]
+        		}];/*, {
                 xtype: 'toolbar',
                 ui: 'dark',
                 items: buttonsGroup2,
@@ -103,11 +111,12 @@ Ext.setup({
             }];*/
         }
 
-        new Ext.Panel({
-            id: 'phone_screen',
+        mainPanel = new Ext.Panel({
+            id: 'main_panel',
             fullscreen: true,
             html: document.getElementById("content").innerHTML,
             styleHtmlContent: true,
+            bodyStyle: 'padding: 0px',
             dockedItems: dockedItems
         });
     }

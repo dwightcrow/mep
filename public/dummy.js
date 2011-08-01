@@ -135,7 +135,7 @@ var data = [
                       name: "Mason Simon",
                       pic: "https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcQunmaNuxGPq7Z3NNkaeYvtNviM3m6UvE-w0vKnuRdswlh0PuMu" } ],
     type: 3,
-    details: "exploding shit. same alley?",
+    details: "exploding shit. same alley as usual?",
     start: hoursAfter(NOW, 42),
     end: hoursAfter(NOW, 43),
     createdAtLocation: { lat: 37.8150, lng: -122.4035 },
