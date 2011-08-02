@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id          :integer         not null, primary key
-#  facebook_id :integer
+#  fb_id 				:string(255)
 #  name        :string(255)
 #  pic_url     :string(255)
 #  created_at  :datetime
@@ -14,7 +14,8 @@
 class User < ActiveRecord::Base
   has_many :events
   has_many :messages
-  attr_accessible :facebook_id
+  attr_accessible :fb_id
+  validates_uniqueness_of :fb_id, :message => "A user already exists with that fb_id"
 
   def relevant_events
     Event.all
@@ -31,7 +32,7 @@ class User < ActiveRecord::Base
         :startTime => event.start_time,
         :endTime => event.end_time,
         :location => event.location,
-        :messages => event.messages.map { |message| { :message => message.text, :messageId => message.id, :fromUserId => message.from_user.facebook_id, :sentAt => message.created_at } }
+        :messages => event.messages.map { |message| { :message => message.text, :messageId => message.id, :fromUserId => message.from_user.fb_id, :sentAt => message.created_at } }
       }
     end.to_json
   end

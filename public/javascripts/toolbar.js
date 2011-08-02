@@ -10,8 +10,6 @@ Ext.setup({
              Ext.getCmp('main_panel').update("add button pressed");
         };
 
-
-        var buttonsGroup1 = [];
        /* var buttonsGroup1 = [{
             text: 'Back',
             ui: 'back',
@@ -50,35 +48,6 @@ Ext.setup({
         }
 
 
-        if (!Ext.is.Phone) {
-           // buttonsGroup1.push({xtype: 'spacer'});
-           // buttonsGroup2.push({xtype: 'spacer'});
-
-            var dockedItems = [{
-                xtype: 'toolbar',
-                // dock this toolbar at the top
-                dock: 'top',
-                items: buttonsGroup1
-            }];
-            new Ext.Panel({
-                id: 'toolbartxt',
-                fullscreen: true,
-                // styleHtmlContent: true,
-                dockedItems: dockedItems,
-                defaults: {
-                    scroll: 'vertical',
-                    xtype: 'panel',
-                    layout: 'hbox',
-                    pack: 'justify',
-                    align: 'center',
-                    defaults: {
-                        xtype: 'button',
-                        ui: 'confirm'
-                    }
-                }
-            });
-        // Phone has far less screen real-estate
-        } else {
             var dockedItems = [{
                 xtype: 'toolbar',
                 ui: 'light',
@@ -109,9 +78,8 @@ Ext.setup({
                 items: buttonsGroup4,
                 dock: 'bottom'
             }];*/
-        }
 
-        mainPanel = new Ext.Panel({
+        eventPanel = new Ext.Panel({
             id: 'main_panel',
             fullscreen: true,
             html: document.getElementById("content").innerHTML,
