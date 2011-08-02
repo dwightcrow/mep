@@ -27,7 +27,7 @@ class LoginController < ApplicationController
   		"&code="+fb_code
 		http = Net::HTTP.new(graph_domain, 443)
 		http.use_ssl = true
-		res = http.get(path)
+		res = http.get(path, {})
 		access_token = CGI::parse(res.body)["access_token"][0]
 		#TODO - theoretically we could also make this call and filter on category for "sports"
 		#pull_fb_data ("/likes", access_token)
@@ -101,7 +101,7 @@ class LoginController < ApplicationController
 		path = "/me"+type+"?access_token="+access_token
 		http = Net::HTTP.new(graph_domain, 443)
 		http.use_ssl = true
-		res = http.get(path)
+		res = http.get(path,{})
 		#If we're requesting a picture, we want to return the location
 		if(type.eql?("/picture")) then return res["location"] end
 		return res.body
