@@ -1,13 +1,20 @@
 var rootPanel;
 var eventPanelList = [];
 
-console.log( data );
 
-// create each event panel programatically and add to eventList
+/*
+Guide to below frankencode
+1. var data comes from dummy.js right now. Will come from something else later
+2. RenderEvents( data ) appends htmlized events into EventPanelList
+3. Two toolbars are docked to top and bottom below in DockedItems
+4. We feed the EventPanelList and DockedItems into eventFlowPanel
+4. We make an app with a "cards" main view - 3 cards are eventFlowPanel, newEventPanel
+   and detailsPanel
+5. Buttons and taps transition between the active cards
+*/
+
 // We'll have this from authentication; probly not with this exact var name.
 var CURRENT_USER_ID = 1;
-
-console.log( 1 );
 
 // How many participant pics show up in each event?
 var NUM_VISIBLE_PARTICIPANTS = 3;
@@ -18,22 +25,11 @@ var activityIcons = {
   3: '/images/activity.jpg'
 };
 
-/*
-$(document).ready(function() {
-  console.log( 'getting called');
-  renderEvents(data);
-  $('.browseEvent').click( toggleMessages );
-  $('#content').show();
-});
-*/
-
 /* Returns the 2-letter weekday abbreviation for the weekday of a given date. */
 var weekdayAbbreviations = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 var dateToWeekdayAbbreviation = function(date) {
   return weekdayAbbreviations[date.getDay()];
 };
-
-console.log( 2 );
 
 /* Returns the 12-hour hour time for a given date. */
 var dateToHour = function(date) {
@@ -48,17 +44,12 @@ var dateToAmPm = function(date) {
   else return 'PM';
 };
 
-console.log( 3 );
-/* Renders DOM elements for all the events.
- */
+/* Renders DOM elements for all the events. */
 var renderEvents = function(eventList) {
-console.log( eventList );
-console.log( 4 );
 
   var renderEvent = function(eventItem) {
     var createdByMe = eventItem.creatorId === CURRENT_USER_ID;
     var typeName = typeNames[eventItem.type];
-console.log( 5 );
     // Convert start and end to Date objects.
     var start = new Date(eventItem.start);
     var end = new Date(eventItem.end);
@@ -76,7 +67,6 @@ console.log( 5 );
 
     $(shownParticipants).each(function (index, participant) { html += '' +
       '    <img class="participantIcon" src="' + participant.pic + '">'; });
-console.log( 6 );
     if( unshownParticipants.length > 0 ){
     html += '' +
       '    <div class="plusMore">+' + unshownParticipants.length + '</div>';
@@ -123,13 +113,24 @@ console.log( 6 );
     html+='</div>';
 
     var element = $(html);
-    console.log( element );
+    //console.log( element );
     // make a panel out of this and add it to eventList
     eventPanelList.push( new Ext.Panel({
+        id: 'event'+eventItem.eventId,
+        layout: 'auto',
         dock: 'top',
         html: html,
+        listeners:{
+          el: {
+            tap: function() {
+              app.detailPanel.update( '<div style="margin:10px;">Details page for '+this.id+'</div>' );
+              app.Viewport.setActiveItem('detailPanel', {type:'slide', direction:'left'}); }
+            },
+          scope: this,
+        },
     })
     );
+
   };
 
   $.each(eventList, function(index, eventItem) {
@@ -137,14 +138,89 @@ console.log( 6 );
   });
 };
 
-// call function and make app
+// call above logic
 renderEvents( data );
-Ext.setup({
-  onReady: function() {
-    rootPanel = new Ext.Panel({
-      fullscreen: true,
-      dockedItems: eventPanelList,
+
+// make some toolbars!
+var buttonsSpecTop = [
+  //{ ui: 'back', text: 'Back' },
+  { xtype: 'spacer' },
+  { xtype:'box', html:'<img src="/images/hooqlogoCenter.png" style="height:45px;">', align:'center' },
+  { xtype: 'spacer' },
+  { ui: 'forward', text: 'New Event', handler: function() { app.Viewport.setActiveItem('newEventPanel', {type:'slide', direction:'left'}); } },
+]
+
+var buttonsSpecBottom = [
+    { ui: 'normal', text: 'Friends' },
+    { ui: 'normal', text: 'Run' },
+    { ui: 'normal', text: 'Climb' },
+    { ui: 'normal', text: 'Yoga' },
+    { ui: 'normal', text: 'Orgy' },
+]
+
+var tapHandler = function (btn, evt) {
+    alert("Button '" + btn.text + "' tapped.");
+};
+
+var topToolBar = {
+    xtype: 'toolbar',
+    //title: 'Buttons',
+    ui: 'dark',
+    dock: 'top',
+    items: buttonsSpecTop,
+    defaults: { handler: tapHandler }
+};
+
+var bottomToolBar = {
+    xtype: 'toolbar',
+    ui: 'dark',
+    dock: 'bottom',
+    items: buttonsSpecBottom,
+    defaults: { handler: tapHandler }
+};
+dockedItems = [ topToolBar, bottomToolBar ];
+
+app = new Ext.Application({
+  name: "Hooq",
+  launch: function() {
+    app.newEventPanel = new Ext.Panel({
+      id: 'newEventPanel',
+      html: '<div style="margin:10px;">New Event Panel!</div>',
+      dockedItems: [{
+        xtype: 'toolbar',
+        items: [{ text: 'Events',
+                  ui: 'back',
+                  handler: function() { app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'}); }
+               }]
+      }]
     });
+
+    app.eventFlowPanel = new Ext.Panel({
+      id: 'eventFlowPanel',
+      fullscreen: true,
+      dockedItems: dockedItems,
+      items: eventPanelList,
+    });
+
+    app.detailPanel = new Ext.Panel({
+      id: 'detailPanel',
+      html: '<div style="margin:10px;">Detail Panel!</div>',
+      dockedItems: [{
+        xtype: 'toolbar',
+        items: [{ text: 'Events',
+                  ui: 'back',
+                  handler: function() { app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'}); }
+               }]
+      }]
+    });
+
+    app.Viewport = new Ext.Panel ({
+      fullscreen: true,
+      layout: 'card',
+      cardSwitchAnimation: 'slide',
+      items: [app.eventFlowPanel, app.detailPanel, app.newEventPanel]
+    });
+
   }
 });
 

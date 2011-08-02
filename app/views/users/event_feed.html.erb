@@ -18,7 +18,6 @@ var activityIcons = {
 };
 
 $(document).ready(function() {
-  console.log( 'getting called');
   renderEvents(data);
   $('.browseEvent').click( toggleMessages );
   $('#content').show();
@@ -117,7 +116,6 @@ var renderEvents = function(eventList) {
     var element = $(html);
     // no longer use this if using sencha
     //element.appendTo($('#content'));
-    console.log( element );
   };
 
   $.each(eventList, function(index, eventItem) {
