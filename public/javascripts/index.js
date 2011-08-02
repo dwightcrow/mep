@@ -1,12 +1,13 @@
-<!-- <#script src='/users/event_feed_json'></script>-->
-<script src='/dummy.js'></script>
-<!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script> -->
-<script src='/javascripts/jquery.min.js'></script>
-<script src='/javascripts/date.format.js'></script>
-<script>
+var rootPanel;
+var eventPanelList = [];
 
+console.log( data );
+
+// create each event panel programatically and add to eventList
 // We'll have this from authentication; probly not with this exact var name.
 var CURRENT_USER_ID = 1;
+
+console.log( 1 );
 
 // How many participant pics show up in each event?
 var NUM_VISIBLE_PARTICIPANTS = 3;
@@ -17,18 +18,22 @@ var activityIcons = {
   3: '/images/activity.jpg'
 };
 
+/*
 $(document).ready(function() {
   console.log( 'getting called');
   renderEvents(data);
   $('.browseEvent').click( toggleMessages );
   $('#content').show();
 });
+*/
 
 /* Returns the 2-letter weekday abbreviation for the weekday of a given date. */
 var weekdayAbbreviations = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 var dateToWeekdayAbbreviation = function(date) {
   return weekdayAbbreviations[date.getDay()];
 };
+
+console.log( 2 );
 
 /* Returns the 12-hour hour time for a given date. */
 var dateToHour = function(date) {
@@ -43,14 +48,17 @@ var dateToAmPm = function(date) {
   else return 'PM';
 };
 
+console.log( 3 );
 /* Renders DOM elements for all the events.
  */
 var renderEvents = function(eventList) {
+console.log( eventList );
+console.log( 4 );
 
   var renderEvent = function(eventItem) {
     var createdByMe = eventItem.creatorId === CURRENT_USER_ID;
     var typeName = typeNames[eventItem.type];
-
+console.log( 5 );
     // Convert start and end to Date objects.
     var start = new Date(eventItem.start);
     var end = new Date(eventItem.end);
@@ -68,7 +76,7 @@ var renderEvents = function(eventList) {
 
     $(shownParticipants).each(function (index, participant) { html += '' +
       '    <img class="participantIcon" src="' + participant.pic + '">'; });
-
+console.log( 6 );
     if( unshownParticipants.length > 0 ){
     html += '' +
       '    <div class="plusMore">+' + unshownParticipants.length + '</div>';
@@ -115,9 +123,13 @@ var renderEvents = function(eventList) {
     html+='</div>';
 
     var element = $(html);
-    // no longer use this if using sencha
-    //element.appendTo($('#content'));
     console.log( element );
+    // make a panel out of this and add it to eventList
+    eventPanelList.push( new Ext.Panel({
+        dock: 'top',
+        html: html,
+    })
+    );
   };
 
   $.each(eventList, function(index, eventItem) {
@@ -125,15 +137,14 @@ var renderEvents = function(eventList) {
   });
 };
 
-var toggleMessages = function( ){
-  var wrapper = $(this).parent();
-  var messagesWrapper = $(wrapper).children('.messagesWrapper');
-  if( $(messagesWrapper).css('display') === 'none' ){
-    $(messagesWrapper).slideDown(220);
-  } else{
-    $( messagesWrapper ).slideUp(280);
+// call function and make app
+renderEvents( data );
+Ext.setup({
+  onReady: function() {
+    rootPanel = new Ext.Panel({
+      fullscreen: true,
+      dockedItems: eventPanelList,
+    });
   }
-}
-
-</script>
+});
 

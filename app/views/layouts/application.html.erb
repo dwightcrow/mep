@@ -6,7 +6,12 @@
   	<%=stylesheet_link_tag 'main' %>
   	<%=stylesheet_link_tag 'sencha-touch.css' %>
   	<script type="text/javascript" src="/javascripts/sencha-touch.js"></script>
-  	<script type="text/javascript" src="/javascripts/toolbar.js"></script>
+  	<!-- old sencha app <#script type="text/javascript" src="/javascripts/toolbar.js"></script> -->
+    <script src='/javascripts/jquery.min.js'></script>
+  	<script src='/dummy.js'></script>
+    <script src='/javascripts/date.format.js'></script>
+    <script type="text/javascript" src="/javascripts/index.js"></script>
+
   	<%=@includes%>
     <title><%=@page_title%></title>
     <meta name="viewport" content="width=device-width,user-scalable=no" />

@@ -1,3 +1,9 @@
+// Register the Event model with Sencha.
+// The lookup store is wired together with our list at the end of the file
+Ext.regModel('Event', {
+    fields: ['eventId', 'creatorUserId', 'participants', 'type', 'details', 'start', 'end', 'createdAtLocation', 'location', 'messages' ]
+});
+
 var types = {
   "running": 1,
   "yoga": 2,
@@ -16,7 +22,7 @@ var NOW = new Date();
 
 
 // This first one is an event you created, and you're the only one going.
-var data = [
+var eventList = [
   { eventId: 1,
     creatorUserId: 1,
     participants: [ { userId: 1,
@@ -143,6 +149,15 @@ var data = [
     messages: [ ] }
 ];
 
-// for forwards compat with index.js
-var eventList = data;
+
+
+Hooqup.ListStore = new Ext.data.Store({
+    model: 'Event',
+    sorters: 'start',
+    // add group by day later
+    //getGroupString : function(record) {
+    //    return record.get('lastName')[0];
+    //},
+    data: eventList,
+});
 
