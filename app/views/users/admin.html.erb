@@ -1,0 +1,15 @@
+<table>
+<tr><th>Name</th><th>Age</th><th>Sex</th><th>Location</th><th>Profile</th><th>Accepted</th></tr>
+<script src='/javascripts/jquery.min.js'></script>
+<%User.find(:all, :limit => 10).each do |u| %>
+<%if u.gender then sex="Male" else sex="Female" end%>
+<tr>
+<td><%=u.name%></td>
+<td><%=(Date.today-u.birthday).to_i/365%> years</td>
+<td><%=sex%></td>
+<td><%=u.fb_location_name%></td>
+<td><a href="<%=@fb_profile_base+u.fb_id.to_s%>"><img alt="Go to profile" src="<%=u.pic_url%>"/></a></td>
+<td><a href="#" onClick="javascript:window.open('/users/application_toggle','width=300,height=200')"><span id="app_status"><%=(not u.locked_out).to_s%></span></a></td>
+</tr>
+<%end%>
+</table>

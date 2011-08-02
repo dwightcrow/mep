@@ -8,4 +8,18 @@
 
 ['Running', 'Orgy', 'Hiking', 'Yoga', 'Concert'].each do |name|
   EventType.create(:name => name)
+  
+#create admins
+sean = User.new
+sean.name = "Sean Holbert"
+sean.fb_id = 212696
+sean.fb_location_name = "San Francisco, California"
+sean.fb_location_id = "114952118516947"
+sean.birthday = Date.parse("09/25/1986")
+sean.gender = true
+sean.pic_url="https://fbcdn-profile-a.akamaihd.net/"+
+		"hprofile-ak-snc4/260932_212696_707107_q.jpg"
+sean.locked_out = false
+sean.admin = true
+sean.save
 end

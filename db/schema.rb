@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110728001927) do
+ActiveRecord::Schema.define(:version => 20110802033924) do
 
   create_table "event_participants", :force => true do |t|
     t.integer  "user_id"
@@ -45,11 +45,17 @@ ActiveRecord::Schema.define(:version => 20110728001927) do
   end
 
   create_table "users", :force => true do |t|
-    t.integer  "facebook_id"
+    t.integer  "fb_id"
     t.string   "name"
+    t.string   "fb_location_name"
+    t.integer  "fb_location_id"
+    t.date     "birthday"
+    t.boolean  "gender"
     t.string   "pic_url"
+    t.boolean  "locked_out"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin"
   end
 
 end
