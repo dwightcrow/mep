@@ -178,7 +178,12 @@ var bottomToolBar = {
     items: buttonsSpecBottom,
     defaults: { handler: tapHandler }
 };
-dockedItems = [ topToolBar, bottomToolBar ];
+
+dockedItems = [ topToolBar, bottomToolBar, ];
+
+// see wt fis in session storage
+console.log( sessionStorage );
+
 
 app = new Ext.Application({
   name: "Hooq",

@@ -15,7 +15,7 @@ class LoginController < ApplicationController
 		"&redirect_uri="+Rails.application.config.base_url+"/login/fb_handler"+
 		"&scope=email,user_activities,user_interests,user_likes,user_location,user_birthday"
 	end
-	
+
 	def fb_handler
 		fb_code = params[:code]
 		p "code = " + fb_code
@@ -33,11 +33,12 @@ class LoginController < ApplicationController
 		#pull_fb_data ("/likes", access_token)
 		login_user(access_token)
 	end
-	
+
 	def login_user(access_token)
 		#Get Name, ID, current location
 		userJSON = pull_fb_data("",access_token)
 		parsed_json = ActiveSupport::JSON.decode(userJSON)
+		if true then
 		if(user = User.find_by_fb_id(parsed_json["id"])) then
 			if not user.locked_out
 				session[:user_id] = parsed_json["id"]
@@ -49,22 +50,22 @@ class LoginController < ApplicationController
 		session[:access_token] = access_token
 		redirect_to "/login/signup"
 	end
-	
-	#Case where we block the user and 
+
+	#Case where we block the user and
 	def signup
-		if(!session.has_key?("access_token")) then 
-  		redirect_to "/login" 
+		if(!session.has_key?("access_token")) then
+  		redirect_to "/login"
   		return
   	end
 	end
-	
+
 	#Stores user's data in Signups table and displays "Thank You" message
 	def signup_post
 		@message = "Thank you!"
 		register_user(session[:access_token], true)
 		session[:access_token] = nil
 	end
-	
+
 	def register_user(access_token, locked_out)
 		userJSON = pull_fb_data("",access_token)
 		parsed_json = ActiveSupport::JSON.decode(userJSON)
@@ -80,22 +81,22 @@ class LoginController < ApplicationController
 		user.locked_out = locked_out
 		user.pic_url = picture
 		user.birthday = Date.parse(parsed_json["birthday"])
-		if parsed_json.has_key?("location") then 
+		if parsed_json.has_key?("location") then
 				user.fb_location_name = parsed_json["location"]["name"]
 				user.fb_location_id = parsed_json["location"]["id"]
 		end
 		if(parsed_json.has_key?("gender")) then
 			if parsed_json["gender"].eql?("male") then
 				user.gender = true
-			else 
+			else
 				user.gender = false
 			end
-		else 
+		else
 			user.gender = nil
 		end
 		user.save
 	end
-	
+
 	def pull_fb_data(type, access_token)
 		graph_domain="graph.facebook.com"
 		path = "/me"+type+"?access_token="+access_token
@@ -106,8 +107,9 @@ class LoginController < ApplicationController
 		if(type.eql?("/picture")) then return res["location"] end
 		return res.body
 	end
-	
-	
-	
-	
+
+
+
+
 end
+

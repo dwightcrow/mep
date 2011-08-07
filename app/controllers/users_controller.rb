@@ -9,6 +9,8 @@ class UsersController < ApplicationController
   		@admin_priv = '<center><a href="/users/admin">Admin</a></center>'.html_safe
   	end
   	@page_title = "Welcome to Hooqup"
+    @maybeSenchaApp = '/javascripts/index.js'
+    @maybeSenchaTouch = '/javascripts/sencha-touch.js'
   end
 
   def logout
@@ -16,7 +18,7 @@ class UsersController < ApplicationController
 		session[:user_name]=nil
 		redirect_to "/login"
 	end
-	
+
 	def admin
 		@fb_profile_base = "http://www.facebook.com/profile.php?"
 	end
