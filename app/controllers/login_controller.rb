@@ -38,7 +38,6 @@ class LoginController < ApplicationController
 		#Get Name, ID, current location
 		userJSON = pull_fb_data("",access_token)
 		parsed_json = ActiveSupport::JSON.decode(userJSON)
-		if true then
 		if(user = User.find_by_fb_id(parsed_json["id"])) then
 			if not user.locked_out
 				session[:user_id] = parsed_json["id"]
