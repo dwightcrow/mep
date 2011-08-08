@@ -181,8 +181,12 @@ var bottomToolBar = {
 
 dockedItems = [ topToolBar, bottomToolBar, ];
 
-// see wt fis in session storage
-console.log( sessionStorage );
+// javascript to construct new Event panel
+var newEventHtml = 'fuck'
+
+
+
+
 
 
 app = new Ext.Application({

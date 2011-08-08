@@ -1,6 +1,6 @@
 <%= form_for @event do |f| %>
   <%= select_tag(:event_type_id, options_for_select(@event_types)) %>
-  
+
   <div class='when-selector'>
     Between
     <% @start_days.each do |day| %>
@@ -15,12 +15,13 @@
     <% end %>
     <%= select_tag(:end_time, options_for_select(@end_times)) %>
   </div>
-  
+
   <%= label_tag(:location, "where") %>
   <%= text_field_tag(:location) %>
-  
+
   <%= label_tag(:details, "details") %>
   <%= text_field_tag(:details) %>
-  
+
   <%= submit_tag "Create" %>
 <% end %>
+

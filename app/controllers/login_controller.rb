@@ -45,7 +45,14 @@ class LoginController < ApplicationController
 				redirect_to "/users/event_feed"
 				return
 			end
-		end
+    else
+		  # just put anyone into db for now XXX_DWIGHT
+		  register_user( access_token, false )
+		  session[:user_id] = parsed_json["id"]
+  		session[:user_name] = parsed_json["name"]
+			redirect_to "/users/event_feed"
+			return
+    end
 		session[:access_token] = access_token
 		redirect_to "/login/signup"
 	end
