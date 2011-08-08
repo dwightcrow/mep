@@ -182,7 +182,10 @@ var bottomToolBar = {
 dockedItems = [ topToolBar, bottomToolBar, ];
 
 // javascript to construct new Event panel
-var newEventHtml = 'fuck'
+var newEventHtml = 'fuck';
+
+
+var listPanel = Ext.List();
 
 
 

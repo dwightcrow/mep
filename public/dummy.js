@@ -14,6 +14,19 @@ function hoursAfter(date, hours) {
 }
 var NOW = new Date();
 
+// Sencha touch integration
+Ext.regModel('Event',{
+  fields: [
+    {name: 'eventId', type: 'int'},
+    {name: 'creatorUserId', type: 'int' },
+    // {name: 'participants', type: ' god damnit need to make another has many reference :/
+    {name: 'type', type: 'int' },
+    {name: 'details', type: 'string' },
+  ],
+  // need to finish this XX_DWIGHT, first get scroll working
+}
+
+
 
 // This first one is an event you created, and you're the only one going.
 var data = [
