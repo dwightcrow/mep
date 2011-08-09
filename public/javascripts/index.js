@@ -128,7 +128,7 @@ var renderEvents = function(eventList) {
             },
           scope: this,
         },
-    })
+      })
     );
 
   };
@@ -141,7 +141,7 @@ var renderEvents = function(eventList) {
 // call above logic
 renderEvents( data );
 
-// make some toolbars!
+// setup top and bottom toolbars
 var buttonsSpecTop = [
   //{ ui: 'back', text: 'Back' },
   { xtype: 'spacer' },
@@ -171,6 +171,7 @@ var topToolBar = {
     defaults: { handler: tapHandler }
 };
 
+// doesn't do anything yet besides register clicks
 var bottomToolBar = {
     xtype: 'toolbar',
     ui: 'dark',
@@ -179,37 +180,136 @@ var bottomToolBar = {
     defaults: { handler: tapHandler }
 };
 
+// register xtypes for convenience
+console.log( Ext.form );
+Ext.reg('datefield', Ext.form.DatePicker );
+Ext.reg('slider', Ext.form.Slider );
+Ext.reg('radio', Ext.form.Radio );
+Ext.reg('select', Ext.form.Select );
+Ext.reg('spinner', Ext.form.Spinner );
+
+// newEventPanel form - TBD if this is usable, right now skipping
+fields = {
+  xtype: 'fieldset',
+  title: 'New Event',
+  intructions: 'fill shit in',
+  defaults: { xtype: 'radio', },
+  items: [
+    { name: 'description',
+      label: 'description',
+      xtype: 'textfield',
+    },
+    { name: 'location',
+      label: 'where',
+      xtype: 'textfield',
+    },
+    { name: 'start_time',
+      label: 'Start Time:',
+      xtype: 'datefield',
+    },
+    { name: 'slider',
+      label: 'slider',
+      xtype:'slider', },
+    { name: 'spinner',
+      label: 'spinner',
+      xtype:'spinner', },
+    { name: 'radio',
+      label: 'radio',
+      xtype:'radio',
+     },
+    { xtype: 'fieldset',
+      layout: 'hbox',
+      minHeight: 80,
+      fieldlabel: 'Start Day',
+      defaults: { xtype: 'radio', width: 100, },
+      items:[
+      { label: 'Mon',
+          boxLabel: 'M',
+          name: 'size',
+          inputValue: 'm',
+      }, { label: 'Tue',
+          boxLabel: 'L',
+          name: 'size',
+          inputValue: 'l'
+      }, { label: 'Wed',
+          boxLabel: 'XL',
+          name: 'size',
+          inputValue: 'xl'
+      }]
+    },
+  ],
+}
+
+// hack in mean time
+var newEventForm;
+var newEventHtml = '';
+console.log( 'trying to get form');
+$.get( '/events/new', function( data ){
+  newEventForm = new Ext.form.FormPanel({
+    html: data,
+  });
+} );
+
+// contents for newEventPanel
+var makeNewEvent = function(){
+  var postdata = '';
+  postdata += 'event_type_id=' + $('#event_type_id').val();
+  postdata += '&details=' + $('#details').val();
+  var startTime = new Date( $("input[name='start_day']:checked").val() );
+  // parseInt base 10 is important or 08 and 09 turn into zero in octal
+  startTime.setHours( parseInt( $('#start_time').val().substring(0,2), 10 ), 0, 0, 0);
+  postdata += '&start_time=' + startTime;
+  var endTime = new Date( $("input[name='end_day']:checked").val() );
+  endTime.setHours( parseInt( $('#end_time').val().substring(0,2), 10 ), 0, 0, 0);
+  postdata += '&end_time=' + endTime;
+  postdata += '&location=' + $('#location').val();
+  console.log( postdata );
+  // without csrf session is reset upon post
+  $.ajaxSetup({
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+    }
+  });
+  // send data
+  $.ajax({
+    type: "POST",
+    url: "/events/saveEvent",
+    data: postdata,
+    success: function(data) {
+      console.log( 'success!' );
+      app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'});
+    },
+    error: function(request, status, exception) {
+    	alert(status + " " + exception);
+    }
+  });
+};
+
 dockedItems = [ topToolBar, bottomToolBar, ];
-
-// javascript to construct new Event panel
-var newEventHtml = 'fuck';
-
-
-var listPanel = Ext.List();
-
-
-
-
-
 
 app = new Ext.Application({
   name: "Hooq",
   launch: function() {
     app.newEventPanel = new Ext.Panel({
       id: 'newEventPanel',
-      html: '<div style="margin:10px;">New Event Panel!</div>',
       dockedItems: [{
         xtype: 'toolbar',
-        items: [{ text: 'Events',
+        items: [{ text: 'Cancel',
                   ui: 'back',
                   handler: function() { app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'}); }
                }]
-      }]
+      },
+      ],
+      items: [
+      newEventForm,
+      { text:'New Event', xtype:'button', ui:'normal', handler: makeNewEvent, width: 150 },
+      ],
     });
 
     app.eventFlowPanel = new Ext.Panel({
       id: 'eventFlowPanel',
       fullscreen: true,
+      scroll:'vertical',
       dockedItems: dockedItems,
       items: eventPanelList,
     });

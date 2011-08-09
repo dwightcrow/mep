@@ -5,11 +5,12 @@
   <head>
   	<%=stylesheet_link_tag 'main' %>
   	<%=stylesheet_link_tag 'sencha-touch.css' %>
+  	<%= csrf_meta_tag %>
     <script src='/javascripts/jquery.min.js'></script>
+    <script src='/javascripts/sencha-touch.js'></script>
   	<script src='/dummy.js'></script>
     <script src='/javascripts/date.format.js'></script>
     <!-- only include sencha app for logged in event flow -->
-    <script src=<%=@maybeSenchaTouch%>></script>
     <script src=<%=@maybeSenchaApp%>></script>
     <%=@includes%>
 

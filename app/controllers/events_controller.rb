@@ -21,14 +21,22 @@ class EventsController < ApplicationController
     end
   end
 
-  def newFromApp
-    @event = Event.new
-    @event_types = EventType.all.map { |et| [et.name, et.id] }
-
-
+  def saveEvent
+    puts 'start'
+    e = Event.new
+    e.event_type_id = params[:event_type_id]
+    e.details = params[:details]
+    e.start_time =  params[:start_time]
+    e.end_time = params[:end_time]
+    e.location = params[:location]
+    e.creator_id = session[:user_id]
+    e.save
+    ep = e.event_participants.create()
+    ep.user_id = session[:user_id]
+    ep.save
+    e.save
+    redirect_to '/events/new'
   end
-
-
 
 end
 

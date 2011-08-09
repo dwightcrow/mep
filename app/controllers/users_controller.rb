@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   		redirect_to "/login"
   		return
   	end
+  	print "userid=", session[:user_id], '\n'
   	u = User.find_by_fb_id(session[:user_id])
   	if u.admin  then
   		@admin_priv = '<center><a href="/users/admin">Admin</a></center>'.html_safe
