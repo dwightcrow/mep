@@ -4,11 +4,14 @@ class UsersController < ApplicationController
   		redirect_to "/login"
   		return
   	end
+  	print "userid=", session[:user_id], '\n'
   	u = User.find_by_fb_id(session[:user_id])
   	if u.admin  then
   		@admin_priv = '<center><a a href="/users/admin?select=all">Admin</a></center>'.html_safe
   	end
   	@page_title = "Welcome to Hooqup"
+    @maybeSenchaApp = '/javascripts/index.js'
+    @maybeSenchaTouch = '/javascripts/sencha-touch.js'
   end
 
   def logout
@@ -16,7 +19,7 @@ class UsersController < ApplicationController
 		session[:user_name]=nil
 		redirect_to "/login"
 	end
-	
+
 	def admin
 		u = User.find_by_fb_id(session[:user_id])
 		if u==nil or !u.admin 

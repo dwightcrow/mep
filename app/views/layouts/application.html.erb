@@ -5,19 +5,25 @@
   <head>
   	<%=stylesheet_link_tag 'main' %>
   	<%=stylesheet_link_tag 'sencha-touch.css' %>
-  	<script type="text/javascript" src="/javascripts/sencha-touch.js"></script>
-  	<!-- old sencha app <#script type="text/javascript" src="/javascripts/toolbar.js"></script> -->
+  	<%= csrf_meta_tag %>
     <script src='/javascripts/jquery.min.js'></script>
+    <script src='/javascripts/sencha-touch.js'></script>
   	<script src='/dummy.js'></script>
     <script src='/javascripts/date.format.js'></script>
-    <script type="text/javascript" src="/javascripts/index.js"></script>
+    <!-- only include sencha app for logged in event flow -->
+    <script src=<%=@maybeSenchaApp%>></script>
+    <%=@includes%>
 
-  	<%=@includes%>
     <title><%=@page_title%></title>
     <meta name="viewport" content="width=device-width,user-scalable=no" />
   </head>
   <body>
+<<<<<<< HEAD
 			<div id="content" style="display:none">
+=======
+  		<%=@meta_data%>
+			<div id="content">
+>>>>>>> 08b32e05afb588b0fc8b0d581dcc3e7c18b3d507
 				<%=yield%>
 			</div>
   </body>
