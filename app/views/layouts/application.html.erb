@@ -11,19 +11,15 @@
   	<script src='/dummy.js'></script>
     <script src='/javascripts/date.format.js'></script>
     <!-- only include sencha app for logged in event flow -->
-    <script src=<%=@maybeSenchaApp%>></script>
+    <script src='<%=@maybeSenchaApp%>'></script>
     <%=@includes%>
 
     <title><%=@page_title%></title>
     <meta name="viewport" content="width=device-width,user-scalable=no" />
   </head>
   <body>
-<<<<<<< HEAD
-			<div id="content" style="display:none">
-=======
   		<%=@meta_data%>
 			<div id="content">
->>>>>>> 08b32e05afb588b0fc8b0d581dcc3e7c18b3d507
 				<%=yield%>
 			</div>
   </body>

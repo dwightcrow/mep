@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   		@admin_priv = '<center><a a href="/users/admin?select=all">Admin</a></center>'.html_safe
   	end
   	@page_title = "Welcome to Hooqup"
-    @maybeSenchaApp = '/javascripts/index.js'
+    @maybeSenchaApp = '/javascripts/event_feed.js'
     @maybeSenchaTouch = '/javascripts/sencha-touch.js'
   end
 

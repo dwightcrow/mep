@@ -5,6 +5,7 @@ require "net/https"
 class LoginController < ApplicationController
   def index
   	@page_title = "Login to hooqup"
+  	@maybeSenchaApp="/javascripts/login.js"
   end
 
 	def fb_button_click

@@ -1,4 +1,9 @@
 class EventsController < ApplicationController
+
+	def index
+		@maybeSenchaApp="/javascripts/event_feed.js"
+	end
+	
   def new
     @event = Event.new
     @event_types = EventType.all.map { |et| [et.name, et.id] }
