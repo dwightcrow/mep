@@ -5,12 +5,13 @@ require "net/https"
 class LoginController < ApplicationController
   def index
   	@page_title = "Login to hooqup"
+  	@maybeSenchaApp="/javascripts/login.js"
   end
 
 	def fb_button_click
 		redirect_to "https://www.facebook.com/dialog/oauth?"+
 		"client_id="+Rails.application.config.fb_app_id+
-		#display=touch makes it look sexy on mobole
+		#display=touch makes it look sexy on mobile
 		"&display=touch"+
 		"&redirect_uri="+Rails.application.config.base_url+"/login/fb_handler"+
 		"&scope=email,user_activities,user_interests,user_likes,user_location,user_birthday"

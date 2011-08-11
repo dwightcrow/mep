@@ -1,7 +1,7 @@
 <table>
 <tr><th>Name</th><th>Age</th><th>Sex</th><th>Location</th><th>Profile</th><th>Accepted</th></tr>
 <script src='/javascripts/jquery.min.js'></script>
-<%User.find(:all, :limit => 10).each do |u| %>
+<%User.find(:all,:conditions => @cond).each do |u| %>
 <%if u.gender then sex="Male" else sex="Female" end%>
 <tr>
 <td><%=u.name%></td>
