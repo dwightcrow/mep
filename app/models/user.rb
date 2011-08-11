@@ -25,8 +25,8 @@ class User < ActiveRecord::Base
     relevant_events.map do |event|
       {
         :eventId => event.id,
-        :creatorId => event.creator.facebook_id,
-        :participants => event.participants.map { |user| { :userId => user.facebook_id, :name => user.name, :pic => user.pic_url } },
+        :creatorId => event.creator_id,
+        :participants => event.participants.map { |user| { :userId => user.fb_id, :name => user.name, :pic => user.pic_url } },
         :type => event.event_type_id,
         :details => event.details,
         :startTime => event.start_time,

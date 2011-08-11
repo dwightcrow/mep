@@ -2,23 +2,23 @@
   <%= select_tag(:event_type_id, options_for_select(@event_types)) %>
 
   <div class='when-selector'>
-    Between
+    Between<br>
     <% @start_days.each do |day| %>
       <%= radio_button_tag(:start_day, day[:date]) %>
       <%= label_tag("start_day_#{day[:date]}", day[:label]) %>
     <% end %>
-    <%= select_tag(:start_time, options_for_select(@start_times)) %>
-    and
+    <%= select_tag(:start_time, options_for_select(@start_times)) %><br>
+    and<br>
     <% @end_days.each do |day| %>
       <%= radio_button_tag(:end_day, day[:date]) %>
       <%= label_tag("end_day_#{day[:date]}", day[:label]) %>
     <% end %>
     <%= select_tag(:end_time, options_for_select(@end_times)) %>
-  </div>
+  </div><br>
 
   <%= label_tag(:location, "where") %>
   <%= text_field_tag(:location) %>
-
+  <br>
   <%= label_tag(:details, "details") %>
   <%= text_field_tag(:details) %>
 

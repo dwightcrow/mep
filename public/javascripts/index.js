@@ -1,7 +1,17 @@
 var rootPanel;
 var eventPanelList = [];
 
-
+console.log(data);
+// get data
+var dataHolder;
+console.log( 'calling getJSON');
+$.get( '/events/get_events', function(data){
+dataHolder = data;
+console.log( data );
+renderEvents( data );
+}
+);
+console.log( 'after calling eventJSON');
 /*
 Guide to below frankencode
 1. var data comes from dummy.js right now. Will come from something else later
@@ -51,9 +61,9 @@ var renderEvents = function(eventList) {
     var createdByMe = eventItem.creatorId === CURRENT_USER_ID;
     var typeName = typeNames[eventItem.type];
     // Convert start and end to Date objects.
-    var start = new Date(eventItem.start);
-    var end = new Date(eventItem.end);
-
+    var start = new Date(eventItem.startTime);
+    var end = new Date(eventItem.endTime);
+    console.log( 'timezone=' + start.getTimezoneOffset()/60 );
     var shownParticipants = $(eventItem.participants).slice(0, NUM_VISIBLE_PARTICIPANTS);
     var unshownParticipants = $(eventItem.participants).slice(NUM_VISIBLE_PARTICIPANTS);
 
@@ -79,7 +89,8 @@ var renderEvents = function(eventList) {
              '<span style="font-size:70%;color:#bbb;">' +
                dateToAmPm(start) +
              '</span>' +
-              '-' +
+              ' - ' +
+              dateToWeekdayAbbreviation(end) + ' ' +
               dateToHour(end) +
               '<span style="font-size:70%;color:#bbb;">' +
                 dateToAmPm(end) +
@@ -139,7 +150,8 @@ var renderEvents = function(eventList) {
 };
 
 // call above logic
-renderEvents( data );
+// dont call until we get real data
+//renderEvents( data );
 
 // setup top and bottom toolbars
 var buttonsSpecTop = [
@@ -278,6 +290,7 @@ var makeNewEvent = function(){
     success: function(data) {
       console.log( 'success!' );
       app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'});
+      window.location.reload();
     },
     error: function(request, status, exception) {
     	alert(status + " " + exception);

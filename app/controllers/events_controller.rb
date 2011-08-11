@@ -38,5 +38,10 @@ class EventsController < ApplicationController
     redirect_to '/events/new'
   end
 
+  def get_events
+    @events = Event.all
+    render :json => "[#{@events.map(&:to_json).join(',')}]"
+  end
+
 end
 
