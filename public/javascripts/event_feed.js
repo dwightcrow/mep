@@ -44,7 +44,9 @@ var dateToWeekdayAbbreviation = function(date) {
 /* Returns the 12-hour hour time for a given date. */
 var dateToHour = function(date) {
   // TODO: implement.
-  return date.getHours() % 12 + 1;
+  var h = date.getHours() % 12;
+  if( h == 0 ){ h = 12; }
+  return h;
 };
 
 /* Returns whether the given date is AM or PM. */
@@ -289,8 +291,8 @@ var makeNewEvent = function(){
     data: postdata,
     success: function(data) {
       console.log( 'success!' );
-      //app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'});
-      //window.location.reload();
+      app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'});
+      window.location.reload();
     },
     error: function(request, status, exception) {
     	alert(status + " " + exception);
