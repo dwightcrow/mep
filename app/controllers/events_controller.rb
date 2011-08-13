@@ -31,8 +31,8 @@ class EventsController < ApplicationController
     e = Event.new
     e.event_type_id = params[:event_type_id]
     e.details = params[:details]
-    e.start_time =  params[:start_time]
-    e.end_time = params[:end_time]
+    e.start_time =  Time.parse( params[:start_time] )
+    e.end_time = Time.parse( params[:end_time] )
     e.location = params[:location]
     e.creator_id = session[:user_id]
     e.save
