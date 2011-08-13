@@ -289,8 +289,8 @@ var makeNewEvent = function(){
     data: postdata,
     success: function(data) {
       console.log( 'success!' );
-      app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'});
-      window.location.reload();
+      //app.Viewport.setActiveItem('eventFlowPanel', {type:'slide', direction:'right'});
+      //window.location.reload();
     },
     error: function(request, status, exception) {
     	alert(status + " " + exception);
