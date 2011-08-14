@@ -7,7 +7,7 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 ['Running', 'Orgy', 'Hiking', 'Yoga', 'Concert'].each do |name|
-  EventType.create(:name => name)
+  EventType.create(:name => name) unless EventType.find_by_name(name)
 end
   
 #create admins
