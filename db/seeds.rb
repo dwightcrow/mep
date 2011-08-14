@@ -38,7 +38,7 @@ mason.save
 
 dwight = User.new
 dwight.name = "Dwight Crow"
-dwight.fb_id = 1108693
+dwight.fb_id = 1241495
 dwight.fb_location_name = "San Francisco, California"
 dwight.fb_location_id = "114952118516947"
 dwight.birthday = Date.strptime("11/08/1985", "%m/%d/%Y")
