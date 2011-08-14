@@ -129,7 +129,12 @@ var renderEvents = function(eventList) {
     '</div>';
     } );
     // add the text box here. this needs to be modified once I know how sencha works
-    details_html += '<textarea class="composeMessage">your message here</textarea>';
+    details_html += '' +
+    '<form action="/events/' + eventItem.eventId + '/messages" method="post">' +
+    '<input name="authenticity_token" type="hidden" value="' + $('meta[name="csrf-token"]').attr('content') + '" />' +
+    '<textarea class="composeMessage" name="text">your message here</textarea>' +
+    '<input type="submit" value="send"/>' +
+    '</form>';
 
     var element = $(html);
     //console.log( element );
