@@ -2,12 +2,18 @@
 #
 # Table name: users
 #
-#  id          :integer         not null, primary key
-#  fb_id 				:string(255)
-#  name        :string(255)
-#  pic_url     :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id               :integer         not null, primary key
+#  fb_id            :integer
+#  name             :string(255)
+#  fb_location_name :string(255)
+#  fb_location_id   :integer
+#  birthday         :date
+#  gender           :boolean
+#  pic_url          :string(255)
+#  locked_out       :boolean
+#  created_at       :datetime
+#  updated_at       :datetime
+#  admin            :boolean
 #
 
 # A user; nuff said.
@@ -37,4 +43,5 @@ class User < ActiveRecord::Base
     end.to_json
   end
 end
+
 
