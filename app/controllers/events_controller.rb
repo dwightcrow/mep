@@ -48,5 +48,13 @@ class EventsController < ApplicationController
     render :json => "[#{@events.map(&:to_json).join(',')}]"
   end
 
+  def add_participant
+    e = Event.find( params[:event_id])
+    ep = e.event_participants.create()
+    ep.user_id = session[:user_id]
+    ep.save
+    redirect_to '/events/new'
+  end
+
 end
 
