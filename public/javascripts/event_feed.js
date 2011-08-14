@@ -197,10 +197,34 @@ var renderEvents = function(eventList) {
       '    </div>';
 
                   topRow.html( newHtml );
-                }
+
                 // send update to server
+
+                var postdata = 'event_id=' + this.id.substring( 5 );
+
+                  // without csrf session is reset upon post
+  $.ajaxSetup({
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+    }
+  });
+  // send data
+  $.ajax({
+    type: "POST",
+    url: "/events/add_participant",
+    data: postdata,
+    success: function(data) {
+      console.log( 'successfully added participant!' );
+    },
+    error: function(request, status, exception) {
+    	alert(status + " " + exception);
+    }
+  });
+
+}
+// ends ifNotInHere switch
                 }
-                // all of above is if user is not yet participating
+
 
               } else{
                 app.detailPanel.update( '<div style="margin:10px;">Details page for '+this.id+'</div>' );
