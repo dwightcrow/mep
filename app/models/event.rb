@@ -33,13 +33,13 @@ class Event < ActiveRecord::Base
     myHash = {
     :eventId => self.id,
     :creatorId => self.creator_id,
-    :participants => self.event_participants.includes(:user).map { |ep| { :userId => ep.user_id, :name => User.find_by_fb_id(ep.user_id).name, :pic => User.find_by_fb_id(ep.user_id).pic_url } },
+    :participants => self.event_participants.includes(:user).map { |ep| { :userId => ep.user_id, :name => User.find(ep.user_id).name, :pic => User.find(ep.user_id).pic_url } },
     :type => self.event_type_id,
     :details => self.details,
     :startTime => self.start_time,
     :endTime => self.end_time,
     :location => self.location,
-    :messages => self.messages.map { |message| { :message => message.text, :messageId => message.id, :fromUserId => message.from_user.fb_id, :sentAt => message.created_at } }
+    :messages => self.messages.map { |message| { :message => message.text, :messageId => message.id, :fromUserId => message.from_user.id, :sentAt => message.created_at } }
     }
     myHash.to_json
   end

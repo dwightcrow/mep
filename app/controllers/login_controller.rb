@@ -41,7 +41,8 @@ class LoginController < ApplicationController
 		parsed_json = ActiveSupport::JSON.decode(userJSON)
 		if(user = User.find_by_fb_id(parsed_json["id"])) then
 			if not user.locked_out
-				session[:user_id] = parsed_json["id"]
+		    session[:fb_id] = parsed_json["id"]
+				session[:user_id] = user.id
 				session[:user_name] = parsed_json["name"]
 				redirect_to "/users/event_feed"
 				return
@@ -49,7 +50,9 @@ class LoginController < ApplicationController
     else
 		  # just put anyone into db for now XXX_DWIGHT
 		  register_user( access_token, false )
-		  session[:user_id] = parsed_json["id"]
+		  user = User.find_by_fb_id(parsed_json["id"])
+		  session[:fb_id] = parsed_json["id"]
+		  session[:user_id] = user.id
   		session[:user_name] = parsed_json["name"]
 			redirect_to "/users/event_feed"
 			return

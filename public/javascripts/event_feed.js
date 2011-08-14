@@ -23,8 +23,13 @@ Guide to below frankencode
 5. Buttons and taps transition between the active cards
 */
 
-// We'll have this from authentication; probly not with this exact var name.
-var CURRENT_USER_ID = 1;
+// get self
+var CURRENT_USER_INFO;
+$.get( '/users/get_user_info', function(data){
+CURRENT_USER_INFO = data;
+console.log( data );
+}
+);
 
 // How many participant pics show up in each event?
 var NUM_VISIBLE_PARTICIPANTS = 3;
@@ -60,12 +65,11 @@ var dateToAmPm = function(date) {
 var renderEvents = function(eventList) {
 
   var renderEvent = function(eventItem) {
-    var createdByMe = eventItem.creatorId === CURRENT_USER_ID;
+    //var createdByMe = eventItem.creatorId === CURRENT_USER_ID;
     var typeName = typeNames[eventItem.type];
     // Convert start and end to Date objects.
     var start = new Date(eventItem.startTime);
     var end = new Date(eventItem.endTime);
-    console.log( 'timezone=' + start.getTimezoneOffset()/60 );
     var shownParticipants = $(eventItem.participants).slice(0, NUM_VISIBLE_PARTICIPANTS);
     var unshownParticipants = $(eventItem.participants).slice(NUM_VISIBLE_PARTICIPANTS);
 
@@ -135,10 +139,75 @@ var renderEvents = function(eventList) {
         html: html,
         listeners:{
           el: {
-            tap: function() {
-              app.detailPanel.update( '<div style="margin:10px;">Details page for '+this.id+'</div>' );
-              app.Viewport.setActiveItem('detailPanel', {type:'slide', direction:'left'}); }
-            },
+            tap: function(e ) {
+              console.log( 'event is:' );
+              console.log( e );
+              if( e.target.className == "plusMe" ){
+                console.log( "plusMe tapped" );
+                console.log( this.id );
+                // get event and re-render participants
+                for( var i=0; i<dataHolder.length; i++){
+                  var eventData = dataHolder[i];
+                  if( eventData.eventId!= parseInt( this.id.substring( 5 ) ) ){
+                    continue;
+                  }
+                  // check if current user already participating - shit, just realized need to use id not fb_id
+                  var notHereYet = true;
+                  for( var j=0; j<eventData.participants.length; j++ ){
+                    if( eventData.participants[j].userId == CURRENT_USER_INFO.userId){
+                      notHereYet = false;
+                      alert( "You are already going" );
+                    }
+                  }
+                  if( notHereYet ){
+                  var eventHtml = $(this);
+                  console.log( eventHtml );
+                  console.log( "toprow?" );
+                  var nameOfHtml = '#' + this.id;
+                  console.log( $(nameOfHtml).find(".topRow") );
+                  var topRow = $(nameOfHtml).find(".topRow");
+                  //ugly hack remake all top row html after shoving new user in
+                  var newPerson = CURRENT_USER_INFO;
+                  eventData.participants.unshift( newPerson );
+                  var newHtml = '';
+                  newHtml += '    <img class="activityIcon" src="' + activityIcons[eventItem.type] + '">';
+                  var shownParticipants = $(eventData.participants).slice(0, NUM_VISIBLE_PARTICIPANTS);
+                  var unshownParticipants = $(eventData.participants).slice(NUM_VISIBLE_PARTICIPANTS);
+
+    $(shownParticipants).each(function (index, participant) { newHtml += '' +
+      '    <img class="participantIcon" src="' + participant.pic + '">'; });
+    if( unshownParticipants.length > 0 ){
+    newHtml += '' +
+      '    <div class="plusMore">+' + unshownParticipants.length + '</div>';
+    }
+    newHtml += '' +
+      '    <img class="plusMe" src="/images/plusMe.png">' +
+      '    <div class="eventTime"> '+
+             dateToWeekdayAbbreviation(start) + ' ' +
+             dateToHour(start) +
+             '<span style="font-size:70%;color:#bbb;">' +
+               dateToAmPm(start) +
+             '</span>' +
+              ' - ' +
+              dateToWeekdayAbbreviation(end) + ' ' +
+              dateToHour(end) +
+              '<span style="font-size:70%;color:#bbb;">' +
+                dateToAmPm(end) +
+              '</span>' +
+      '    </div>';
+
+                  topRow.html( newHtml );
+                }
+                // send update to server
+                }
+                // all of above is if user is not yet participating
+
+              } else{
+                app.detailPanel.update( '<div style="margin:10px;">Details page for '+this.id+'</div>' );
+                app.Viewport.setActiveItem('detailPanel', {type:'slide', direction:'left'});
+              }
+            }
+          },
           scope: this,
         },
       })
