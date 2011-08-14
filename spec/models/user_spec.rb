@@ -2,12 +2,18 @@
 #
 # Table name: users
 #
-#  id          :integer         not null, primary key
-#  facebook_id :integer
-#  name        :string(255)
-#  pic_url     :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id               :integer         not null, primary key
+#  fb_id            :integer
+#  name             :string(255)
+#  fb_location_name :string(255)
+#  fb_location_id   :integer
+#  birthday         :date
+#  gender           :boolean
+#  pic_url          :string(255)
+#  locked_out       :boolean
+#  created_at       :datetime
+#  updated_at       :datetime
+#  admin            :boolean
 #
 
 require 'spec_helper'

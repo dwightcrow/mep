@@ -24,3 +24,14 @@ sean.locked_out = false
 sean.admin = true
 sean.save
 
+mason = User.new
+mason.name = "Mason Simon"
+mason.fb_id = 1108693
+mason.fb_location_name = "San Francisco, California"
+mason.fb_location_id = "114952118516947"
+mason.birthday = Date.strptime("01/12/1987", "%m/%d/%Y")
+mason.gender = true
+mason.pic_url="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/260692_1108693_2246620_q.jpg"
+mason.locked_out = false
+mason.admin = true
+mason.save
