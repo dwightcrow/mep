@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   		return
   	end
   	print "userid=", session[:user_id], '\n'
-  	u = User.find_by_fb_id(session[:user_id])
+  	u = User.find_by_fb_id(session[:fb_id])
   	if u.admin  then
   		@admin_priv = '<center><a a href="/users/admin?select=all">Admin</a></center>'.html_safe
   	end
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 	end
 
 	def admin
-		u = User.find_by_fb_id(session[:user_id])
+		u = User.find_by_fb_id(session[:fb_id])
 		if u==nil or !u.admin
 			redirect "/users/event_feed"
 			return
@@ -48,5 +48,14 @@ class UsersController < ApplicationController
     @user = User.new
     render :template => 'users/event_feed.js.erb'
   end
+
+  def get_user_info
+    u = User.find_by_fb_id(session[:fb_id])
+    tempHash = { :userId => u.id,
+                 :name => u.name,
+                 :pic => u.pic_url }
+    render :json => tempHash.to_json
+  end
+
 end
 
