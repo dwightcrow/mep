@@ -7,7 +7,7 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 ['Running', 'Orgy', 'Hiking', 'Yoga', 'Concert'].each do |name|
-  EventType.create(:name => name)
+  EventType.create(:name => name) unless EventType.find_by_name(name)
 end
   
 #create admins
@@ -35,3 +35,15 @@ mason.pic_url="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/260692_1108
 mason.locked_out = false
 mason.admin = true
 mason.save
+
+dwight = User.new
+dwight.name = "Dwight Crow"
+dwight.fb_id = 1241495
+dwight.fb_location_name = "San Francisco, California"
+dwight.fb_location_id = "114952118516947"
+dwight.birthday = Date.strptime("11/08/1985", "%m/%d/%Y")
+dwight.gender = true
+dwight.pic_url="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/274169_1241495_7906527_q.jpg"
+dwight.locked_out = false
+dwight.admin = true
+dwight.save
