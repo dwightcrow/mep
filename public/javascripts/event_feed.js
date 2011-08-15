@@ -132,7 +132,7 @@ var renderEvents = function(eventList) {
     details_html += '' +
     '<form action="/events/' + eventItem.eventId + '/messages" method="post">' +
     '<input name="authenticity_token" type="hidden" value="' + $('meta[name="csrf-token"]').attr('content') + '" />' +
-    '<textarea class="composeMessage" name="text">your message here</textarea>' +
+    '<textarea class="composeMessage" name="text"></textarea>' +
     '<input type="submit" value="send"/>' +
     '</form>';
 

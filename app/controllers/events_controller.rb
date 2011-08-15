@@ -41,7 +41,7 @@ class EventsController < ApplicationController
     ep.user_id = session[:user_id]
     ep.save
     e.save
-    redirect_to '/events/new'
+    redirect_to '/events/get_events'
   end
 
   def get_events
@@ -54,7 +54,7 @@ class EventsController < ApplicationController
     ep = e.event_participants.create()
     ep.user_id = session[:user_id]
     ep.save
-    redirect_to '/events/new'
+    redirect_to '/events/get_events'
   end
 
 end
