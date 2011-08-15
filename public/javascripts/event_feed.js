@@ -113,8 +113,8 @@ var renderEvents = function(eventList) {
       '</div>';
     html+='</div>';
     html+='</div>';
-    
-    var details_html = html; 
+
+    var details_html = html;
     // iterate messages, hidden by default
     details_html += '<div class="messagesWrapper">';
     $.each( eventItem.messages, function( index, msg ){

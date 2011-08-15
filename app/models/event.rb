@@ -36,8 +36,8 @@ class Event < ActiveRecord::Base
     :participants => self.event_participants.includes(:user).map { |ep| { :userId => ep.user_id, :name => User.find(ep.user_id).name, :pic => User.find(ep.user_id).pic_url } },
     :type => self.event_type_id,
     :details => self.details,
-    :startTime => self.start_time,
-    :endTime => self.end_time,
+    :startTime => self.start_time.httpdate,
+    :endTime => self.end_time.httpdate,
     :location => self.location,
     :messages => self.messages.map { |message| { :message => message.text, :messageId => message.id, :fromUserId => message.from_user.id, :sentAt => message.created_at } }
     }
