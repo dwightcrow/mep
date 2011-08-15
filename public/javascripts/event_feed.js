@@ -111,11 +111,15 @@ var renderEvents = function(eventList) {
       '  </div>' +
       '  <div class="numMessages">'+eventItem.messages.length+'msg</div>' +
       '</div>';
+    html+='</div>';
+    html+='</div>';
+    
+    var details_html = html; 
     // iterate messages, hidden by default
-    html += '<div class="messagesWrapper">';
+    details_html += '<div class="messagesWrapper">';
     $.each( eventItem.messages, function( index, msg ){
     var sender = eventItem.participants.filter( function( user ){ return (user.userId == msg.fromUserId); } )[0];
-    html += '' +
+    details_html += '' +
     '<div class="message">'  +
     '    <img class="messageIcon" src="' + sender.pic + '">' +
     '    <div class="messageContents"><span class="messageSender">' + sender.name + ':</span> ' +
@@ -125,9 +129,12 @@ var renderEvents = function(eventList) {
     '</div>';
     } );
     // add the text box here. this needs to be modified once I know how sencha works
-    html+= '<textarea class="composeMessage">your message here</textarea>';
-    html+='</div>';
-    html+='</div>';
+    details_html += '' +
+    '<form action="/events/' + eventItem.eventId + '/messages" method="post">' +
+    '<input name="authenticity_token" type="hidden" value="' + $('meta[name="csrf-token"]').attr('content') + '" />' +
+    '<textarea class="composeMessage" name="text">your message here</textarea>' +
+    '<input type="submit" value="send"/>' +
+    '</form>';
 
     var element = $(html);
     //console.log( element );
@@ -227,7 +234,7 @@ var renderEvents = function(eventList) {
 
 
               } else{
-                app.detailPanel.update( '<div style="margin:10px;">Details page for '+this.id+'</div>' );
+                app.detailPanel.update( details_html );
                 app.Viewport.setActiveItem('detailPanel', {type:'slide', direction:'left'});
               }
             }
