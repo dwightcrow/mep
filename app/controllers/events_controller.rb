@@ -17,10 +17,11 @@ class EventsController < ApplicationController
       dt = DateTime.now.advance(:days => day_offset)
       { :label => dt.strftime("%a")[0..1], :date => dt.httpdate }
     end
-
+    @selected_start_time = sprintf("%02d:00", (Time.new).hour )
     @start_times = 24.times.map do |hour|
       [sprintf("%02d:00", hour), sprintf("%02d:00", hour)]
     end
+    @selected_end_time = sprintf("%02d:00", ((Time.new).hour + 3 )% 24 )
     @end_times = 24.times.map do |hour|
       [sprintf("%02d:00", hour), sprintf("%02d:00", hour)]
     end

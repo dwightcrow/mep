@@ -4,16 +4,24 @@
   <div class='when-selector'>
     Between<br>
     <% @start_days.each do |day| %>
-      <%= radio_button_tag(:start_day, day[:date]) %>
+      <% if day == @start_days[0] %>
+        <%= radio_button_tag(:start_day, day[:date], :checked=>true) %>
+      <% else %>
+        <%= radio_button_tag(:start_day, day[:date]) %>
+      <% end %>
       <%= label_tag("start_day_#{day[:date]}", day[:label]) %>
     <% end %>
-    <%= select_tag(:start_time, options_for_select(@start_times)) %><br>
+    <%= select_tag(:start_time, options_for_select(@start_times, @selected_start_time ) ) %><br>
     and<br>
     <% @end_days.each do |day| %>
-      <%= radio_button_tag(:end_day, day[:date]) %>
+      <% if day == @end_days[0] %>
+        <%= radio_button_tag(:end_day, day[:date], :checked=>true) %>
+      <% else %>
+        <%= radio_button_tag(:end_day, day[:date] ) %>
+      <% end %>
       <%= label_tag("end_day_#{day[:date]}", day[:label]) %>
     <% end %>
-    <%= select_tag(:end_time, options_for_select(@end_times)) %>
+    <%= select_tag(:end_time, options_for_select(@end_times, @selected_end_time ) ) %>
   </div><br>
 
   <%= label_tag(:location, "where") %>
@@ -22,6 +30,5 @@
   <%= label_tag(:details, "details") %>
   <%= text_field_tag(:details) %>
 
-  <!--<%= submit_tag "Create" %> -->
 <% end %>
 
