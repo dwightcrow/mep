@@ -10,41 +10,42 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110814033033) do
+ActiveRecord::Schema.define(:version => 20110815045723) do
 
   create_table "event_participants", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "user_id"
+    t.integer   "event_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "event_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "name"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "event_type_id"
-    t.string   "details"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.string   "location"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "creator_id"
+    t.integer   "event_type_id"
+    t.string    "details"
+    t.timestamp "start_time"
+    t.timestamp "end_time"
+    t.string    "location"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.integer   "creator_id"
   end
 
   create_table "messages", :force => true do |t|
-    t.string   "text"
-    t.integer  "from_user_id"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "text"
+    t.integer   "from_user_id"
+    t.integer   "event_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
-  create_table "users", :force => true do |t|
+  create_table "users", :id => false, :force => true do |t|
+    t.integer  "id"
     t.integer  "fb_id"
     t.string   "name"
     t.string   "fb_location_name"
