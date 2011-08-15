@@ -90,7 +90,7 @@ class LoginController < ApplicationController
 		user.name = parsed_json["name"]
 		user.locked_out = locked_out
 		user.pic_url = picture
-		user.birthday = Date.parse(parsed_json["birthday"])
+		user.birthday = Date.strptime(parsed_json["birthday"], '%m/%d/%Y' )
 		if parsed_json.has_key?("location") then
 				user.fb_location_name = parsed_json["location"]["name"]
 				user.fb_location_id = parsed_json["location"]["id"]
