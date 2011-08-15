@@ -11,11 +11,11 @@ class EventsController < ApplicationController
     num_days = 3
     @start_days = num_days.times.map do |day_offset|
       dt = DateTime.now.advance(:days => day_offset)
-      { :label => dt.strftime("%a")[0..1], :date => dt.to_s }
+      { :label => dt.strftime("%a")[0..1], :date => dt.httpdate }
     end
     @end_days = num_days.times.map do |day_offset|
       dt = DateTime.now.advance(:days => day_offset)
-      { :label => dt.strftime("%a")[0..1], :date => dt.to_s }
+      { :label => dt.strftime("%a")[0..1], :date => dt.httpdate }
     end
 
     @start_times = 24.times.map do |hour|

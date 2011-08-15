@@ -39,7 +39,7 @@ class Event < ActiveRecord::Base
     :startTime => self.start_time.httpdate,
     :endTime => self.end_time.httpdate,
     :location => self.location,
-    :messages => self.messages.map { |message| { :message => message.text, :messageId => message.id, :fromUserId => message.from_user.id, :sentAt => message.created_at } }
+    :messages => self.messages.map { |message| { :message => message.text, :messageId => message.id, :fromUserId => message.from_user.id, :sentAt => message.created_at.httpdate } }
     }
     myHash.to_json
   end
