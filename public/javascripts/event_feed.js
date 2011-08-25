@@ -35,9 +35,14 @@ console.log( data );
 var NUM_VISIBLE_PARTICIPANTS = 3;
 
 var activityIcons = {
-  1: '/images/activity.jpg',
-  2: '/images/activity.jpg',
-  3: '/images/activity.jpg'
+  1: '/images/hooq_movies_2.png',
+  2: '/images/hooq_bike_2.png',
+  3: '/images/hooq_coffee_2.png',
+  6: '/images/hooq_run_2.png',
+  7: '/images/hooq_team_2.png',
+  8: '/images/hooq_climbing_2.png',
+  9: '/images/hooq_yogo_2.png',
+  10: '/images/hooq_drinking_2.png',
 };
 
 /* Returns the 2-letter weekday abbreviation for the weekday of a given date. */
